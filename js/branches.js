@@ -1,6 +1,6 @@
 /**
- * @classDestription - Placeholder for Flu Shot application variables and functions.
- * @class - Flushot
+ * @classDestription - Placeholder for (Flu Shot) application variables and functions.
+ * @class - Branches
  */
 var Branches = (function($) {
 	var constructor = function(infoboxoptions){
@@ -13,23 +13,6 @@ var Branches = (function($) {
 		
 		// Can we geolocate?
 		this.geolocate = navigator.geolocation;
-		
-		this.setIcal = function(Event)
-		{
-			return function(){
-				$('#ical-'+Event.data.id).icalendar({
-					start: new Date(Date._parse(Event.data.begin_date+' '+Event.data.begin_time)),
-					end: new Date(Date._parse(Event.data.begin_date+' '+Event.data.end_time)),
-					title: 'Flu Shot Event',
-					summary: 'Flu Shot Event',
-					description: "Please remember to bring your immunization/shot records with you.",
-					location: Event.data.facility_name+' - '+Event.data.street1+' - '+Event.data.city+' '+Event.data.state+' '+Event.data.postal_code,
-					iconSize: 16,
-					sites: ['icalendar'],
-					echoUrl: '//flushots.smartchicagoapps.org/ical.php'
-				});
-			};
-		};
 		
 		this.getEvents = function(columns,rows,Map)
 		{

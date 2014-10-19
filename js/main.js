@@ -1,4 +1,4 @@
-(function($,TkMap,FusionTable,Flushots){
+(function($,TkMap,FusionTable,Branches){
 	/**
 	 * @classDescription - Default settings for this application
 	 * @class - Default
@@ -9,15 +9,13 @@
 		// DOM ID of where the Google Map is to be rendered
 		domid:'map',
 		// Google Fusion Tables SQL-like query string for flu shot location data
-		eventquery:'SELECT * FROM 1leqPq9hrsGhnE8NoT00YZn1ITTzhK6BhrF8LNL4',
+		eventquery:'SELECT * FROM 1qnZU9ZwRU_S5VfR65bu7zAZyEm_AuE_ht3TAy8CB',
 		// Google Fusion Tables URI
 		fturl:'https://www.googleapis.com/fusiontables/v1/query',
 		// Google maps API key
-		googlemapsapikey:'AIzaSyDRVus9kkg8mr6M7EZUmXZsdoM7JSFbvC8',
-		// Icon for other for-fee events
-		iconfee:'/img/red.png',
-		// Icon for Free events
-		iconfree:'/img/blue.png',
+		googlemapsapikey:'AIzaSyDS9x0ibRw04exp7JgjINfQtfdd5Nch_fY',
+		// Icon
+		icon:'/img/blue.png',
 		// Icon for your location
 		iconlocation:'/img/yellow-dot.png',
 		// infobox.js options
@@ -73,17 +71,17 @@
 		/**
 		 * The Flushot application object
 		 */
-		var Flu = new Flushots(Default.infoboxoptions);
+		var Bra = new Branches(Default.infoboxoptions);
 		
 		var LegendDiv = document.createElement('div');
-		Flu.setMapLegend(LegendDiv,Map,Flu,Default);
+		Bra.setMapLegend(LegendDiv,Map,Bra,Default);
 		LegendDiv.index = 1;
 		Map.Map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(LegendDiv);
 		
-		if(Flu.geolocate)
+		if(Bra.geolocate)
 		{
 			var FindMeDiv = document.createElement('div');
-			Flu.setFindMeControl(FindMeDiv,Map,Flu,Default);
+			Bra.setFindMeControl(FindMeDiv,Map,Bra,Default);
 			FindMeDiv.index = 1;
 			Map.Map.controls[google.maps.ControlPosition.TOP_RIGHT].push(FindMeDiv);
 		}
@@ -97,9 +95,9 @@
 		.done(function (ftdata) {
 			EventsFT.columns = ftdata.columns;
 			EventsFT.rows = ftdata.rows;
-			Flu.getEvents(EventsFT.columns,EventsFT.rows,Map);
+			Bra.getEvents(EventsFT.columns,EventsFT.rows,Map);
 			// Highlight all today's and upcoming events.
-			Flu.setMarkersByDay('all');
+			Bra.setMarkersByDay('all');
 		})
 		.fail(function(){
 			alert('Oh, no! We are having trouble getting the information we need from storage.');
@@ -117,7 +115,7 @@
 			}
 			
 			// Selected today's events
-			Flu.setMarkersByDay('all');
+			Bra.setMarkersByDay('all');
 			
 		}); // END Day dropup listener
 		
@@ -134,7 +132,7 @@
 			}
 			
 			// Selected today's events
-			Flu.setMarkersByDay('seven');
+			Bra.setMarkersByDay('seven');
 			
 		}); // END 7 day listener
 		
@@ -153,16 +151,16 @@
 			}
 			
 			// Select the day's events
-			Flu.setMarkersByDay($(this).text());
+			Bra.setMarkersByDay($(this).text());
 			
 		}); // END Day dropup listener
 		
 		$('#nav-address').change(function(){
 			if($(this).val().length === 0)
 			{
-				if(Flu.AddressMarker !== null)
+				if(Bra.AddressMarker !== null)
 				{
-					Flu.AddressMarker.setMap(null);
+					Bra.AddressMarker.setMap(null);
 				}
 			}
 		});
@@ -189,9 +187,9 @@
 								Map.Map.panTo(Results[0].geometry.location);
 								Map.Map.setZoom(Default.zoomaddress);
 								// Make a map marker if none exists yet
-								if(Flu.AddressMarker === null)
+								if(Bra.AddressMarker === null)
 								{
-									Flu.AddressMarker = new google.maps.Marker({
+									Bra.AddressMarker = new google.maps.Marker({
 										position:Results[0].geometry.location,
 										map: Map.Map,
 										icon:Default.iconlocation,
@@ -201,11 +199,11 @@
 								else
 								{
 									// Move the marker to the new location
-									Flu.AddressMarker.setPosition(Results[0].geometry.location);
+									Bra.AddressMarker.setPosition(Results[0].geometry.location);
 									// If the marker is hidden, unhide it
-									if(Flu.AddressMarker.getMap() === null)
+									if(Bra.AddressMarker.getMap() === null)
 									{
-										Flu.AddressMarker.setMap(Map.Map);
+										Bra.AddressMarker.setMap(Map.Map);
 									}
 								}
 								if($('#navbar-button').is(':visible'))
@@ -266,4 +264,4 @@
 		});
 		
 	}); // END jQuery on document ready
-})(jQuery,TkMap,FusionTable,Flushots);
+})(jQuery,TkMap,FusionTable,Branches);
