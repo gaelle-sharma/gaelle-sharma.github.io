@@ -2,7 +2,7 @@
  * @classDestription - Placeholder for Flu Shot application variables and functions.
  * @class - Flushot
  */
-var Flushots = (function($) {
+var Branches = (function($) {
 	var constructor = function(infoboxoptions){
 		this.AddressMarker = null;
 		
@@ -45,11 +45,7 @@ var Flushots = (function($) {
 				// Create the Google LatLng object
 				this.Events[i].latlng = new google.maps.LatLng(this.Events[i].data.latitude,this.Events[i].data.longitude);
 				// Create the markers for each event
-				var icon = 'img/red.png';
-				if($.trim(this.Events[i].data.cost.toLowerCase()) === 'free')
-				{
-					icon = 'img/blue.png';
-				}
+				var icon = 'img/blue.png';
 				this.Events[i].marker = new google.maps.Marker({
 					position: this.Events[i].latlng,
 					map: Map.Map,
