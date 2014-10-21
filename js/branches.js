@@ -209,98 +209,23 @@ var Branches = (function($) {
 			});
 		};
 		
-		this.setMarkersByDay = function(day)
+		this.setMarkersByBank = function(bank)
 		{
 			for(var i in this.Events)
 			{
-				// Let's see if 'day' is in the day of week list for this event.
-				var dayArray = this.Events[i].data.recurrence_days.split(',');
-				var onDay = false;
-				for(var j in dayArray)
-				{
-					if (
-						$.trim(day.toLowerCase()) === 'all'
-						||
-						(
-							// If 'today'
-							$.trim(day.toLowerCase()) === 'today'
-							&& Date.getDayNumberFromName(this.now.toString('dddd')) === Date.getDayNumberFromName($.trim(dayArray[j]))
-						)
-						||
-						(
-							// If a day of the week
-							Date.getDayNumberFromName(day) === Date.getDayNumberFromName($.trim(dayArray[j]))
-						)
-					)
-					{
-						onDay = true;
-					}
-				}
-				// If event is after begin date and before end date, and is in the list of days of the week...
+				// Let's see if 'bank' corresponds to the bank_name for this branch.
+				var bank_name = this.Events[i].data.bank_name;
+				var onBank = false;
 				if (
-					// If 'day' is in the recurrence days list.
-					onDay === true
-					&& (
-						// When 'day is a day of week, don't worry if event has not begun. 
-						// We are looking for today as well as future events.
-						$.trim(day.toLowerCase()) !== 'today'
-						// Make sure today is on of after event start date.
-						|| parseInt(this.now.toString('yyyyMMdd'),10) >= parseInt(Date.parse(this.Events[i].data.begin_date).toString('yyyyMMdd'),10)
-					)
-					// If today is before or on event end date
-					&& parseInt(this.now.toString('yyyyMMdd'),10) <= parseInt(Date.parse(this.Events[i].data.end_date).toString('yyyyMMdd'),10)
-				)
-				{
-					// See if it is a free event
-					if($.trim(this.Events[i].data.cost.toLowerCase()) === 'free')
-					{
-						this.Events[i].marker.setIcon('img/blue.png');
-					}
-					else
-					{
-						// Hand over some dead presidents.
-						this.Events[i].marker.setIcon('img/red.png');
-					}
-				}
-				else if
-				(
-					$.trim(day.toLowerCase()) === 'seven'
-					&& onDay === false
-					// If today is before or on event end date
-					&& (
-						(
-							// Event end date is on or after today & event end date is before or is 7 days from now
-							parseInt(Date.parse(this.Events[i].data.end_date).toString('yyyyMMdd'),10) >= parseInt(Date.today().toString('yyyyMMdd'),10)
-							&& parseInt(Date.parse(this.Events[i].data.end_date).toString('yyyyMMdd'),10) <= parseInt(Date.today().add({days:6}).toString('yyyyMMdd'),10)
-						)
-						||
-						(
-							// 
-							(
-								// Event begin date is before or on today & event end date is after or on today
-								parseInt(Date.parse(this.Events[i].data.begin_date).toString('yyyyMMdd'),10) <= parseInt(Date.today().toString('yyyyMMdd'),10)
-								&& parseInt(Date.parse(this.Events[i].data.end_date).toString('yyyyMMdd'),10) >= parseInt(Date.today().toString('yyyyMMdd'),10)
-							)
-							||
-							(
-								// event begin date is on or before 7 days from now & event end date is on or after today
-								parseInt(Date.parse(this.Events[i].data.begin_date).toString('yyyyMMdd'),10) <= parseInt(Date.today().add({days:6}).toString('yyyyMMdd'),10)
-								&& parseInt(Date.parse(this.Events[i].data.end_date).toString('yyyyMMdd'),10)  >= parseInt(Date.today().add({days:6}).toString('yyyyMMdd'),10)
-							)
-						)
+					$.trim(bank.toLowerCase()) === 'all'
+					||
+					(
+						// If a specific bank
+						bank === bank_name
 					)
 				)
 				{
-					// See if it is a free event
-					if($.trim(this.Events[i].data.cost.toLowerCase()) === 'free')
-					{
-						this.Events[i].marker.setIcon('img/blue.png');
-					}
-					else
-					{
-						// Hand over some dead presidents.
-						this.Events[i].marker.setIcon('img/red.png');
-					}
+					onBank = true;
 				}
 				else
 				{

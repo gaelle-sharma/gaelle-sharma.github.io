@@ -38,7 +38,7 @@ var Event = (function($){
 					ThisEvent.infoboxtext += '</div>';
 					ThisEvent.infobox.setContent(ThisEvent.infoboxtext);
 					ThisEvent.infobox.open(Map,ThisEvent.marker);
-					_gaq.push(['_trackEvent', 'Open InfoBox', 'Event', ThisEvent.data.facility_name+' | '+ThisEvent.data.street1]);
+					_gaq.push(['_trackEvent', 'Open InfoBox', 'Event', ThisEvent.data.branch_name+' | '+ThisEvent.data.street1]);
 				}
 			};
 		};

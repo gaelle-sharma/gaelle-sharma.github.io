@@ -36,7 +36,7 @@
 			pane: "floatPane",
 			enableEventPropagation: false
 		},
-		// Start center latutude of the Google map
+		// Start center latitude of the Google map
 		lat:41.875,
 		// Start center longitude of the Google map
 		lng:-87.6425,
@@ -45,7 +45,7 @@
 		// Defined style types passed to TkMap
 		styles:'grey minlabels',
 		// Initial zoom level for the Google map
-		zoom:12,
+		zoom:11,
 		// Zoom for finding address
 		zoomaddress:14
 	};
