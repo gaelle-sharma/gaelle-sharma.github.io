@@ -101,9 +101,9 @@
 		$('#nav-all').click(function(){
 			
 			// Change the UI
-			$('#nav-li-banks,#nav-li-twelve,.bank-btn').removeClass('active');
+			$('#nav-li-banks,.bank-btn').removeClass('active');
 			$('#nav-li-all').addClass('active');
-			$('#nav-banks-text').text('On A Day');
+			$('#nav-banks-text').text('Bank');
 			if($('#navbar-button').is(':visible'))
 			{
 				$('#navbar-button').click();
@@ -114,30 +114,13 @@
 			
 		}); // END Bank dropup listener
 		
-		// Twelve Bank listener
-		$('#nav-twelve').click(function(){
-			
-			// Change the UI
-			$('#nav-li-banks,#nav-li-all,.bank-btn').removeClass('active');
-			$('#nav-li-twelve').addClass('active');
-			$('#nav-banks-text').text('Bank');
-			if($('#navbar-button').is(':visible'))
-			{
-				$('#navbar-button').click();
-			}
-			
-			// Selected bank
-			Branch.setMarkersByBank('twelve');
-			
-		}); // END twelve bank listener
-		
 		/*
 		 * The Bank dropup list listener
 		 */
 		$('.bank').click(function(){
 			
 			// Change the UI
-			$('#nav-li-all,#nav-li-twelve').removeClass('active');
+			$('#nav-li-all').removeClass('active');
 			$('#nav-li-banks').addClass('active');
 			$('#nav-banks-text').text($(this).text());
 			if($('#navbar-button').is(':visible'))
