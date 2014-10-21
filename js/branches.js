@@ -1,5 +1,5 @@
 /**
- * @classDestription - Placeholder for (Flu Shot) application variables and functions.
+ * @classDestription - Placeholder for (BankOn Branch) application variables and functions.
  * @class - Branches
  */
 var Branches = (function($) {
@@ -16,7 +16,7 @@ var Branches = (function($) {
 		
 		this.getEvents = function(columns,rows,Map)
 		{
-			// Copy the flu shot data to the Event object
+			// Copy the branches data to the Event object
 			for (var i in rows)
 			{
 				this.Events[i] = new Event();
@@ -43,11 +43,6 @@ var Branches = (function($) {
 			{
 				// Listen for marker clicks
 				google.maps.event.addListener(this.Events[i].marker, 'click', this.Events[i].toggleInfoBox(Map.Map,this.Events[i]));
-				// If it is a one-day event, add the ical link.
-				if(this.Events[i].data.begin_date === this.Events[i].data.end_date)
-				{
-					google.maps.event.addListener(this.Events[i].infobox, 'domready', this.setIcal(this.Events[i]));
-				}
 			}
 		};
 		
@@ -101,7 +96,7 @@ var Branches = (function($) {
 		};
 		
 		// Put a Pan/Zoom control on the map
-		this.setFindMeControl = function(controlDiv,Map,Flu,Default)
+		this.setFindMeControl = function(controlDiv,Map,Branch,Default)
 		{
 			// Set CSS styles for the DIV containing the control
 			// Setting padding to 5 px will offset the control
@@ -145,9 +140,9 @@ var Branches = (function($) {
 							Map.Map.setCenter(Latlng);
 							Map.Map.setZoom(Default.zoomaddress);
 							// Make a map marker if none exists yet
-							if(Flu.AddressMarker === null)
+							if(Branch.AddressMarker === null)
 							{
-								Flu.AddressMarker = new google.maps.Marker({
+								Branch.AddressMarker = new google.maps.Marker({
 									position:Latlng,
 									map: Map.Map,
 									icon:Default.iconlocation,
@@ -157,14 +152,14 @@ var Branches = (function($) {
 							else
 							{
 								// Move the marker to the new location
-								Flu.AddressMarker.setPosition(Latlng);
+								Branch.AddressMarker.setPosition(Latlng);
 								// If the marker is hidden, unhide it
-								if(Flu.AddressMarker.getMap() === null)
+								if(Branch.AddressMarker.getMap() === null)
 								{
-									Flu.AddressMarker.setMap(Map.Map);
+									Branch.AddressMarker.setMap(Map.Map);
 								}
 							}
-							Flu.codeLatLng(Latlng);
+							Branch.codeLatLng(Latlng);
 						},
 						// Failure
 						function()
@@ -180,7 +175,7 @@ var Branches = (function($) {
 			});
 		};
 		
-		this.setMapLegend = function(controlDiv,Map,Flu,Default)
+		this.setMapLegend = function(controlDiv,Map,Branch,Default)
 		{
 			// Set CSS styles for the DIV containing the control
 			// Setting padding to 5 px will offset the control
