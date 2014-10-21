@@ -73,11 +73,6 @@
 		 */
 		var Bra = new Branches(Default.infoboxoptions);
 		
-		var LegendDiv = document.createElement('div');
-		Bra.setMapLegend(LegendDiv,Map,Bra,Default);
-		LegendDiv.index = 1;
-		Map.Map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(LegendDiv);
-		
 		if(Bra.geolocate)
 		{
 			var FindMeDiv = document.createElement('div');
