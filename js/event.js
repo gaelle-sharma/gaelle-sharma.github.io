@@ -27,6 +27,7 @@ var Event = (function($){
 				else
 				{
 					ThisEvent.infoboxtext = '<div class="infoBox" style="border:2px solid rgb(16,16,16); margin-top:8px; background:#ddd; padding:5px; font-family:Helvetica Neue,Helvetica,Arial,sans-serif">';
+					ThisEvent.infoboxtext += '<br><span style="font-size:133%">'+ThisEvent.data.branch_name+'</span>';
 					ThisEvent.infoboxtext += '<br>'+ThisEvent.data.street1;
 					ThisEvent.infoboxtext += '<br>'+ThisEvent.data.city+', '+ThisEvent.data.state+' '+ThisEvent.data.postal_code;
 					ThisEvent.infoboxtext += '<br><a class="directions" href="http://www.google.com/maps?';
