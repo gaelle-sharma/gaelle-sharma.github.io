@@ -226,6 +226,7 @@ var Branches = (function($) {
 				)
 				{
 					onBank = true;
+					this.Events[i].marker.setIcon('img/blue.png');
 				}
 				else
 				{
