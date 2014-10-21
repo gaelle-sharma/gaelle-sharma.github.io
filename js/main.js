@@ -69,19 +69,19 @@
 		}); // END Map object constructor
 		
 		/**
-		 * The Flushot application object
+		 * The BankOn Branch Finder application object
 		 */
-		var Bra = new Branches(Default.infoboxoptions);
+		var Branch = new Branches(Default.infoboxoptions);
 		
-		if(Bra.geolocate)
+		if(Branch.geolocate)
 		{
 			var FindMeDiv = document.createElement('div');
-			Bra.setFindMeControl(FindMeDiv,Map,Bra,Default);
+			Branch.setFindMeControl(FindMeDiv,Map,Branch,Default);
 			FindMeDiv.index = 1;
 			Map.Map.controls[google.maps.ControlPosition.TOP_RIGHT].push(FindMeDiv);
 		}
 		
-		// Get the flu shot event data from the Google Fusion Table
+		// Get the branch location data from the Google Fusion Table
 		var EventsFT = new FusionTable(Default.fturl,Default.eventquery,Default.googlemapsapikey);
 		$.getJSON(EventsFT.url, {
 			dataType: 'jsonp',
@@ -90,9 +90,9 @@
 		.done(function (ftdata) {
 			EventsFT.columns = ftdata.columns;
 			EventsFT.rows = ftdata.rows;
-			Bra.getEvents(EventsFT.columns,EventsFT.rows,Map);
+			Branch.getEvents(EventsFT.columns,EventsFT.rows,Map);
 			// Highlight all today's and upcoming events.
-			Bra.setMarkersByDay('all');
+			Branch.setMarkersByBank('all');
 		})
 		.fail(function(){
 			alert('Oh, no! We are having trouble getting the information we need from storage.');
@@ -101,61 +101,61 @@
 		$('#nav-all').click(function(){
 			
 			// Change the UI
-			$('#nav-li-days,#nav-li-seven,.day-btn').removeClass('active');
+			$('#nav-li-banks,#nav-li-twelve,.bank-btn').removeClass('active');
 			$('#nav-li-all').addClass('active');
-			$('#nav-days-text').text('On A Day');
+			$('#nav-banks-text').text('On A Day');
 			if($('#navbar-button').is(':visible'))
 			{
 				$('#navbar-button').click();
 			}
 			
 			// Selected today's events
-			Bra.setMarkersByDay('all');
+			Branch.setMarkersByBank('all');
 			
-		}); // END Day dropup listener
+		}); // END Bank dropup listener
 		
-		// Seven Day listener
-		$('#nav-seven').click(function(){
+		// Twelve Bank listener
+		$('#nav-twelve').click(function(){
 			
 			// Change the UI
-			$('#nav-li-days,#nav-li-all,.day-btn').removeClass('active');
-			$('#nav-li-seven').addClass('active');
-			$('#nav-days-text').text('On A Day');
+			$('#nav-li-banks,#nav-li-all,.bank-btn').removeClass('active');
+			$('#nav-li-twelve').addClass('active');
+			$('#nav-banks-text').text('Bank');
 			if($('#navbar-button').is(':visible'))
 			{
 				$('#navbar-button').click();
 			}
 			
-			// Selected today's events
-			Bra.setMarkersByDay('seven');
+			// Selected bank
+			Branch.setMarkersByBank('twelve');
 			
-		}); // END 7 day listener
+		}); // END twelve bank listener
 		
 		/*
-		 * The Day dropup list listener
+		 * The Bank dropup list listener
 		 */
-		$('.day').click(function(){
+		$('.bank').click(function(){
 			
 			// Change the UI
-			$('#nav-li-all,#nav-li-seven').removeClass('active');
-			$('#nav-li-days').addClass('active');
-			$('#nav-days-text').text($(this).text());
+			$('#nav-li-all,#nav-li-twelve').removeClass('active');
+			$('#nav-li-banks').addClass('active');
+			$('#nav-banks-text').text($(this).text());
 			if($('#navbar-button').is(':visible'))
 			{
 				$('#navbar-button').click();
 			}
 			
 			// Select the day's events
-			Bra.setMarkersByDay($(this).text());
+			Branch.setMarkersByBank($(this).text());
 			
 		}); // END Day dropup listener
 		
 		$('#nav-address').change(function(){
 			if($(this).val().length === 0)
 			{
-				if(Bra.AddressMarker !== null)
+				if(Branch.AddressMarker !== null)
 				{
-					Bra.AddressMarker.setMap(null);
+					Branch.AddressMarker.setMap(null);
 				}
 			}
 		});
@@ -182,9 +182,9 @@
 								Map.Map.panTo(Results[0].geometry.location);
 								Map.Map.setZoom(Default.zoomaddress);
 								// Make a map marker if none exists yet
-								if(Bra.AddressMarker === null)
+								if(Branch.AddressMarker === null)
 								{
-									Bra.AddressMarker = new google.maps.Marker({
+									Branch.AddressMarker = new google.maps.Marker({
 										position:Results[0].geometry.location,
 										map: Map.Map,
 										icon:Default.iconlocation,
@@ -194,11 +194,11 @@
 								else
 								{
 									// Move the marker to the new location
-									Bra.AddressMarker.setPosition(Results[0].geometry.location);
+									Branch.AddressMarker.setPosition(Results[0].geometry.location);
 									// If the marker is hidden, unhide it
-									if(Bra.AddressMarker.getMap() === null)
+									if(Branch.AddressMarker.getMap() === null)
 									{
-										Bra.AddressMarker.setMap(Map.Map);
+										Branch.AddressMarker.setMap(Map.Map);
 									}
 								}
 								if($('#navbar-button').is(':visible'))
