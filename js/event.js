@@ -27,36 +27,8 @@ var Event = (function($){
 				else
 				{
 					ThisEvent.infoboxtext = '<div class="infoBox" style="border:2px solid rgb(16,16,16); margin-top:8px; background:#ddd; padding:5px; font-family:Helvetica Neue,Helvetica,Arial,sans-serif">';
-					if(ThisEvent.data.url !== '') { ThisEvent.infoboxtext += '<a href="'+ThisEvent.data.url+'" target="_blank" style="color:#22f">More Information</a>'; }
-					if(ThisEvent.data.url !== '' && (ThisEvent.data.begin_date === ThisEvent.data.end_date)) { ThisEvent.infoboxtext += ' | ';}
-					if(ThisEvent.data.begin_date === ThisEvent.data.end_date) { ThisEvent.infoboxtext += '<span id="ical-'+ThisEvent.data.id+'" class="ical"></span>'; }
-					ThisEvent.infoboxtext += '<br><span style="font-size:133%">'+ThisEvent.data.facility_name+'</span>';
-					if(ThisEvent.data.begin_date === ThisEvent.data.end_date) { ThisEvent.infoboxtext += '<br>'+ThisEvent.data.recurrence_days; }
-					if(ThisEvent.data.begin_date === ThisEvent.data.end_date) { ThisEvent.infoboxtext += '<br>'+ThisEvent.data.begin_date; }
-					if(ThisEvent.data.begin_date === ThisEvent.data.end_date)
-					{
-						ThisEvent.infoboxtext += '<br>'+Date.parse(ThisEvent.data.begin_time).toString('h:mm tt').toLowerCase()+' - '+Date.parse(ThisEvent.data.end_time).toString('h:mm tt').toLowerCase();
-					}
-					else
-					{
-						ThisEvent.infoboxtext += '<br>'+ThisEvent.data.hours;
-					}
-					ThisEvent.infoboxtext += '<br>Cost: '+ThisEvent.data.cost;
 					ThisEvent.infoboxtext += '<br>'+ThisEvent.data.street1;
-					if(ThisEvent.data.street2 !== '') { ThisEvent.infoboxtext += '<br>'+ThisEvent.data.street2; }
 					ThisEvent.infoboxtext += '<br>'+ThisEvent.data.city+', '+ThisEvent.data.state+' '+ThisEvent.data.postal_code;
-					if(ThisEvent.data.contact !== '') { ThisEvent.infoboxtext += '<br>Contact: '+ThisEvent.data.contact; }
-					if(ThisEvent.data.phone !== '') { 
-						if(ThisEvent.isPhone === false)
-						{
-							ThisEvent.infoboxtext += '<br>'+ThisEvent.data.phone;
-						}
-						else
-						{
-							var phone = String(ThisEvent.data.phone).replace(/[^0-9]/g,'');
-							ThisEvent.infoboxtext += '<br><a href="tel:+1'+phone.slice(-10)+'" style="color:#22f">&#x260E; <u>'+phone.slice(-10,-7)+'-'+phone.slice(-7,-4)+'-'+phone.slice(-4)+'</u></a>';
-						}
-					}
 					ThisEvent.infoboxtext += '<br><a class="directions" href="http://www.google.com/maps?';
 					if($('#nav-address').val() !== '')
 					{
