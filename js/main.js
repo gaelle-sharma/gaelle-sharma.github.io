@@ -9,11 +9,11 @@
 		// DOM ID of where the Google Map is to be rendered
 		domid:'map',
 		// Google Fusion Tables SQL-like query string for flu shot location data
-		eventquery:'SELECT * FROM 1nbPGe3mk7vLY5cJqk1OroMH0x-HpmFvnMKdmLQJP',
+		eventquery:'SELECT * FROM AIzaSyDzVY87fn_IVQpKjFNfcZUztkkdmw1nGT8',
 		// Google Fusion Tables URI
 		fturl:'https://www.googleapis.com/fusiontables/v1/query',
 		// Google maps API key
-		googlemapsapikey:'1v-pRfwahJ8dhd8u7Z48xH0hdz_MO1a6raP9C5rHm',
+		googlemapsapikey:'AIzaSyDzVY87fn_IVQpKjFNfcZUztkkdmw1nGT8',
 		// Icon
 		icon:'/img/blue.png',
 		// Icon for your location
