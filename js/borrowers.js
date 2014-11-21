@@ -1,6 +1,6 @@
 /**
- * @classDestription - Placeholder for (BankOn Branch) application variables and functions.
- * @class - Branches
+ * @classDestription - Placeholder for Portfolio application variables and functions.
+ * @class - Borrower
  */
 var Borrowers = (function($) {
 	var constructor = function(infoboxoptions){
@@ -96,7 +96,7 @@ var Borrowers = (function($) {
 		};
 		
 		// Put a Pan/Zoom control on the map
-		this.setFindMeControl = function(controlDiv,Map,Branch,Default)
+		this.setFindMeControl = function(controlDiv,Map,Portfolio,Default)
 		{
 			// Set CSS styles for the DIV containing the control
 			// Setting padding to 5 px will offset the control
