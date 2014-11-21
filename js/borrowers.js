@@ -5,10 +5,6 @@
 var Borrowers = (function($) {
 	var constructor = function(infoboxoptions){
 		this.AddressMarker = null;
-		
-		// Now
-		this.now = Date.parse('now');
-		
 		this.Loans = [];
 		
 		// Can we geolocate?
@@ -213,7 +209,7 @@ var Borrowers = (function($) {
 		{
 			for(var i in this.Loans)
 			{
-				// Let's see if 'bank' corresponds to the bank_name for this branch.
+				// Let's see if 'type' corresponds to the type for this loan.
 				var loan_type = this.Loans[i].data.type;
 				var onType = false;
 				if (
