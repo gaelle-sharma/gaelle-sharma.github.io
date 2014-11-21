@@ -9,7 +9,7 @@
 		// DOM ID of where the Google Map is to be rendered
 		domid:'map',
 		// Google Fusion Tables SQL-like query string for flu shot location data
-		eventquery:'SELECT * FROM AIzaSyDzVY87fn_IVQpKjFNfcZUztkkdmw1nGT8',
+		loanquery:'SELECT * FROM AIzaSyDzVY87fn_IVQpKjFNfcZUztkkdmw1nGT8',
 		// Google Fusion Tables URI
 		fturl:'https://www.googleapis.com/fusiontables/v1/query',
 		// Google maps API key
@@ -34,7 +34,7 @@
 			infoBoxClearance: new google.maps.Size(25, 60),
 			visible: false,
 			pane: "floatPane",
-			enableEventPropagation: false
+			enableLoanPropagation: false
 		},
 		// Start center latitude of the Google map
 		lat:41.875,
@@ -82,17 +82,17 @@
 		}
 		
 		// Get the branch location data from the Google Fusion Table
-		var EventsFT = new FusionTable(Default.fturl,Default.eventquery,Default.googlemapsapikey);
-		$.getJSON(EventsFT.url, {
+		var LoansFT = new FusionTable(Default.fturl,Default.eventquery,Default.googlemapsapikey);
+		$.getJSON(LoansFT.url, {
 			dataType: 'jsonp',
 			timeout: 5000
 		})
 		.done(function (ftdata) {
-			EventsFT.columns = ftdata.columns;
-			EventsFT.rows = ftdata.rows;
-			Branch.getEvents(EventsFT.columns,EventsFT.rows,Map);
+			LoansFT.columns = ftdata.columns;
+			LoansFT.rows = ftdata.rows;
+			Loan.getLoans(LoansFT.columns,LoansFT.rows,Map);
 			// Highlight all today's and upcoming events.
-			Branch.setMarkersByBank('all');
+			Loan.setMarkersByType('all');
 		})
 		.fail(function(){
 			alert('Oh, no! We are having trouble getting the information we need from storage.');
@@ -101,9 +101,9 @@
 		$('#nav-all').click(function(){
 			
 			// Change the UI
-			$('#nav-li-banks,.bank-btn').removeClass('active');
+			$('#nav-li-types,.type-btn').removeClass('active');
 			$('#nav-li-all').addClass('active');
-			$('#nav-banks-text').text('Bank');
+			$('#nav-types-text').text('Type');
 			if($('#navbar-button').is(':visible'))
 			{
 				$('#navbar-button').click();
@@ -117,12 +117,12 @@
 		/*
 		 * The Bank dropup list listener
 		 */
-		$('.bank').click(function(){
+		$('.type').click(function(){
 			
 			// Change the UI
 			$('#nav-li-all').removeClass('active');
-			$('#nav-li-banks').addClass('active');
-			$('#nav-banks-text').text($(this).text());
+			$('#nav-li-types').addClass('active');
+			$('#nav-types-text').text($(this).text());
 			if($('#navbar-button').is(':visible'))
 			{
 				$('#navbar-button').click();
@@ -165,9 +165,9 @@
 								Map.Map.panTo(Results[0].geometry.location);
 								Map.Map.setZoom(Default.zoomaddress);
 								// Make a map marker if none exists yet
-								if(Branch.AddressMarker === null)
+								if(Loan.AddressMarker === null)
 								{
-									Branch.AddressMarker = new google.maps.Marker({
+									Loan.AddressMarker = new google.maps.Marker({
 										position:Results[0].geometry.location,
 										map: Map.Map,
 										icon:Default.iconlocation,
@@ -177,11 +177,11 @@
 								else
 								{
 									// Move the marker to the new location
-									Branch.AddressMarker.setPosition(Results[0].geometry.location);
+									Loan.AddressMarker.setPosition(Results[0].geometry.location);
 									// If the marker is hidden, unhide it
-									if(Branch.AddressMarker.getMap() === null)
+									if(Loan.AddressMarker.getMap() === null)
 									{
-										Branch.AddressMarker.setMap(Map.Map);
+										Loan.AddressMarker.setMap(Map.Map);
 									}
 								}
 								if($('#navbar-button').is(':visible'))
@@ -237,9 +237,9 @@
 			{
 				theurl += 'saddr='+$('#nav-address').val()+' '+Default.city+', '+Default.state+'&';
 			}
-			theurl += 'daddr='+this.Events[i].data.street1+' '+this.Events[i].data.city+', '+this.Events[i].data.state+' '+this.Events[i].data.postal_code;
+			theurl += 'daddr='+this.Loans[i].data.street1+' '+this.Loans[i].data.city+', '+this.Loans[i].data.state+' '+this.Loans[i].data.postal_code;
 			window.open(theurl);
 		});
 		
 	}); // END jQuery on document ready
-})(jQuery,TkMap,FusionTable,Branches);
+})(jQuery,TkMap,FusionTable,Loans);
