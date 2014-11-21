@@ -73,14 +73,6 @@
 		 */
 		var Portfolio = new Borrowers(Default.infoboxoptions);
 		
-		if(Portfolio.geolocate)
-		{
-			var FindMeDiv = document.createElement('div');
-			Portfolio.setFindMeControl(FindMeDiv,Map,Portfolio,Default);
-			FindMeDiv.index = 1;
-			Map.Map.controls[google.maps.ControlPosition.TOP_RIGHT].push(FindMeDiv);
-		}
-		
 		// Get the loan location data from the Google Fusion Table
 		var LoansFT = new FusionTable(Default.fturl,Default.loanquery,Default.googlemapsapikey);
 		$.getJSON(LoansFT.url, {
