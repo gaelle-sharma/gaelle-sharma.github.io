@@ -83,8 +83,15 @@
 			LoansFT.columns = ftdata.columns;
 			LoansFT.rows = ftdata.rows;
 			Portfolio.getLoans(LoansFT.columns,LoansFT.rows,Map);
-			// Highlight all loans regardless of type.
-			Portfolio.setMarkersByType('all');
+			
+			// Highlight loans
+			var type = document.location.hash.substr(1);
+			if (type in ['all', 'business','cre','nonprofit']) {
+				Portfolio.setMarkersByType(type);
+			}
+			else {
+				Portfolio.setMarkersByType('all');
+			}
 		})
 		.fail(function(){
 			alert('Oh, no! We are having trouble getting the information we need from storage.');
