@@ -1,4 +1,4 @@
-(function($,TkMap,FusionTable,Branches){
+(function($,TkMap,FusionTable,Loans){
 	/**
 	 * @classDescription - Default settings for this application
 	 * @class - Default
@@ -69,20 +69,20 @@
 		}); // END Map object constructor
 		
 		/**
-		 * The BankOn Branch Finder application object
+		 * The UPB Loan Finder application object
 		 */
-		var Branch = new Branches(Default.infoboxoptions);
+		var Loan = new Loans(Default.infoboxoptions);
 		
-		if(Branch.geolocate)
+		if(Loan.geolocate)
 		{
 			var FindMeDiv = document.createElement('div');
-			Branch.setFindMeControl(FindMeDiv,Map,Branch,Default);
+			Loan.setFindMeControl(FindMeDiv,Map,Loan,Default);
 			FindMeDiv.index = 1;
 			Map.Map.controls[google.maps.ControlPosition.TOP_RIGHT].push(FindMeDiv);
 		}
 		
-		// Get the branch location data from the Google Fusion Table
-		var LoansFT = new FusionTable(Default.fturl,Default.eventquery,Default.googlemapsapikey);
+		// Get the loan location data from the Google Fusion Table
+		var LoansFT = new FusionTable(Default.fturl,Default.loanquery,Default.googlemapsapikey);
 		$.getJSON(LoansFT.url, {
 			dataType: 'jsonp',
 			timeout: 5000
@@ -91,7 +91,7 @@
 			LoansFT.columns = ftdata.columns;
 			LoansFT.rows = ftdata.rows;
 			Loan.getLoans(LoansFT.columns,LoansFT.rows,Map);
-			// Highlight all today's and upcoming events.
+			// Highlight all loans regardless of type.
 			Loan.setMarkersByType('all');
 		})
 		.fail(function(){
@@ -109,8 +109,8 @@
 				$('#navbar-button').click();
 			}
 			
-			// Selected today's events
-			Branch.setMarkersByBank('all');
+			// Selected today's loans
+			Loan.setMarkersByType('all');
 			
 		}); // END Bank dropup listener
 		
@@ -128,17 +128,17 @@
 				$('#navbar-button').click();
 			}
 			
-			// Select the day's events
-			Branch.setMarkersByBank($(this).text());
+			// Select the day's loans
+			Loan.setMarkersByType($(this).text());
 			
 		}); // END Day dropup listener
 		
 		$('#nav-address').change(function(){
 			if($(this).val().length === 0)
 			{
-				if(Branch.AddressMarker !== null)
+				if(Loan.AddressMarker !== null)
 				{
-					Branch.AddressMarker.setMap(null);
+					Loan.AddressMarker.setMap(null);
 				}
 			}
 		});
@@ -206,7 +206,7 @@
 									}
 								}
 								var maskedAddress = addarray.join(' ');
-								_gaq.push(['_trackEvent', 'Go Button', 'Address', maskedAddress]);
+								_gaq.push(['_trackLoan', 'Go Button', 'Address', maskedAddress]);
 								
 							}
 							else
