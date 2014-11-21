@@ -2,7 +2,7 @@
  * @classDestription - Placeholder for (BankOn Branch) application variables and functions.
  * @class - Branches
  */
-var Loans = (function($) {
+var Borrowers = (function($) {
 	var constructor = function(infoboxoptions){
 		this.AddressMarker = null;
 		
@@ -42,7 +42,7 @@ var Loans = (function($) {
 			for(var i in this.Loans)
 			{
 				// Listen for marker clicks
-				google.maps.loan.addListener(this.Loanss[i].marker, 'click', this.Loans[i].toggleInfoBox(Map.Map,this.Loans[i]));
+				google.maps.loan.addListener(this.Loans[i].marker, 'click', this.Loans[i].toggleInfoBox(Map.Map,this.Loans[i]));
 			}
 		};
 		
@@ -140,9 +140,9 @@ var Loans = (function($) {
 							Map.Map.setCenter(Latlng);
 							Map.Map.setZoom(Default.zoomaddress);
 							// Make a map marker if none exists yet
-							if(Branch.AddressMarker === null)
+							if(Portfolio.AddressMarker === null)
 							{
-								Branch.AddressMarker = new google.maps.Marker({
+								Portfolio.AddressMarker = new google.maps.Marker({
 									position:Latlng,
 									map: Map.Map,
 									icon:Default.iconlocation,
@@ -152,14 +152,14 @@ var Loans = (function($) {
 							else
 							{
 								// Move the marker to the new location
-								Branch.AddressMarker.setPosition(Latlng);
+								Portfolio.AddressMarker.setPosition(Latlng);
 								// If the marker is hidden, unhide it
-								if(Branch.AddressMarker.getMap() === null)
+								if(Portfolio.AddressMarker.getMap() === null)
 								{
-									Branch.AddressMarker.setMap(Map.Map);
+									Portfolio.AddressMarker.setMap(Map.Map);
 								}
 							}
-							Branch.codeLatLng(Latlng);
+							Portfolio.codeLatLng(Latlng);
 						},
 						// Failure
 						function()
@@ -175,7 +175,7 @@ var Loans = (function($) {
 			});
 		};
 		
-		this.setMapLegend = function(controlDiv,Map,Branch,Default)
+		this.setMapLegend = function(controlDiv,Map,Portfolio,Default)
 		{
 			// Set CSS styles for the DIV containing the control
 			// Setting padding to 5 px will offset the control
@@ -209,7 +209,7 @@ var Loans = (function($) {
 			});
 		};
 		
-		this.setMarkersByBank = function(bank)
+		this.setMarkersByType = function(bank)
 		{
 			for(var i in this.Loans)
 			{
@@ -217,10 +217,10 @@ var Loans = (function($) {
 				var loan_type = this.Loans[i].data.type;
 				var onType = false;
 				if (
-					$.trim(bank.toLowerCase()) === 'all'
+					$.trim(type.toLowerCase()) === 'all'
 					||
 					(
-						// If a specific bank
+						// If a specific loan type
 						type === loan_type
 					)
 				)
