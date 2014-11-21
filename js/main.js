@@ -71,7 +71,7 @@
 		/**
 		 * The UPB Loan Finder application object
 		 */
-		var Portfolio = new PortfolioLoans(Default.infoboxoptions);
+		var Portfolio = new Loans(Default.infoboxoptions);
 		
 		if(Portofolio.geolocate)
 		{
@@ -242,4 +242,4 @@
 		});
 		
 	}); // END jQuery on document ready
-})(jQuery,TkMap,FusionTable,PortfolioLoans);
+})(jQuery,TkMap,FusionTable,Loans);
