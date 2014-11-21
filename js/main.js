@@ -71,7 +71,7 @@
 		/**
 		 * The UPB Loan Finder application object
 		 */
-		var Portfolio = new Loans(Default.infoboxoptions);
+		var Portfolio = new Borrowers(Default.infoboxoptions);
 		
 		if(Portofolio.geolocate)
 		{
@@ -110,7 +110,7 @@
 			}
 			
 			// Selected today's loans
-			Loan.setMarkersByType('all');
+			Portfolio.setMarkersByType('all');
 			
 		}); // END Loan type dropup listener
 		
@@ -129,7 +129,7 @@
 			}
 			
 			// Select the day's loans
-			Loan.setMarkersByType($(this).text());
+			Portfolio.setMarkersByType($(this).text());
 			
 		}); // END Type dropup listener
 		
@@ -242,4 +242,4 @@
 		});
 		
 	}); // END jQuery on document ready
-})(jQuery,TkMap,FusionTable,Loans);
+})(jQuery,TkMap,FusionTable,Borrowers);
