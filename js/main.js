@@ -102,7 +102,7 @@
 			
 			// Change the UI
 			$('#nav-li-types,.type-btn').removeClass('active');
-			$('#nav-li-all').addClass('active');
+			$('#nav-brand').addClass('active');
 			$('#nav-types-text').text('Loan Type');
 			if($('#navbar-button').is(':visible'))
 			{
@@ -120,7 +120,7 @@
 		$('.type').click(function(){
 			
 			// Change the UI
-			$('#nav-li-all').removeClass('active');
+			$('#nav-brand').removeClass('active');
 			$('#nav-li-types').addClass('active');
 			$('#nav-types-text').text($(this).text());
 			if($('#navbar-button').is(':visible'))
