@@ -217,7 +217,7 @@ var Borrowers = (function($) {
 					||
 					(
 						// If a specific loan type
-						type === loan_type
+						type.toLowerCase() === loan_type
 					)
 				)
 				{
