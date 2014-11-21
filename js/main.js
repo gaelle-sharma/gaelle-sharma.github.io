@@ -34,7 +34,7 @@
 			infoBoxClearance: new google.maps.Size(25, 60),
 			visible: false,
 			pane: "floatPane",
-			enableLoanPropagation: false
+			enableEventPropagation: false
 		},
 		// Start center latitude of the Google map
 		lat:41.875,
