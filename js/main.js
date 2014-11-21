@@ -73,7 +73,7 @@
 		 */
 		var Portfolio = new Borrowers(Default.infoboxoptions);
 		
-		if(Portofolio.geolocate)
+		if(Portfolio.geolocate)
 		{
 			var FindMeDiv = document.createElement('div');
 			Portfolio.setFindMeControl(FindMeDiv,Map,Portfolio,Default);
