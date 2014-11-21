@@ -2,47 +2,47 @@
  * @classDestription - Placeholder for (BankOn Branch) application variables and functions.
  * @class - Branches
  */
-var Branches = (function($) {
+var Loans = (function($) {
 	var constructor = function(infoboxoptions){
 		this.AddressMarker = null;
 		
 		// Now
 		this.now = Date.parse('now');
 		
-		this.Events = [];
+		this.Loans = [];
 		
 		// Can we geolocate?
 		this.geolocate = navigator.geolocation;
 		
-		this.getEvents = function(columns,rows,Map)
+		this.getLoans = function(columns,rows,Map)
 		{
-			// Copy the branches data to the Event object
+			// Copy the loans data to the Loans object
 			for (var i in rows)
 			{
-				this.Events[i] = new Event();
+				this.Loans[i] = new Loan();
 				for(var j in columns)
 				{
 					var colname = columns[j];
-					this.Events[i].data[colname] = rows[i][j];
+					this.Loans[i].data[colname] = rows[i][j];
 				}
 				// Create the Google LatLng object
-				this.Events[i].latlng = new google.maps.LatLng(this.Events[i].data.latitude,this.Events[i].data.longitude);
-				// Create the markers for each event
+				this.Loans[i].latlng = new google.maps.LatLng(this.Loans[i].data.latitude,this.Loans[i].data.longitude);
+				// Create the markers for each loan
 				var icon = 'img/blue.png';
-				this.Events[i].marker = new google.maps.Marker({
-					position: this.Events[i].latlng,
+				this.Loans[i].marker = new google.maps.Marker({
+					position: this.Loans[i].latlng,
 					map: Map.Map,
 					icon:icon,
 					shadow:'img/shadow.png',
 					clickable:true
 				});
 				// Make the info box
-				this.Events[i].infobox = new InfoBox(infoboxoptions);
+				this.Loans[i].infobox = new InfoBox(infoboxoptions);
 			}
-			for(var i in this.Events)
+			for(var i in this.Loans)
 			{
 				// Listen for marker clicks
-				google.maps.event.addListener(this.Events[i].marker, 'click', this.Events[i].toggleInfoBox(Map.Map,this.Events[i]));
+				google.maps.loan.addListener(this.Loanss[i].marker, 'click', this.Loans[i].toggleInfoBox(Map.Map,this.Loans[i]));
 			}
 		};
 		
@@ -80,7 +80,7 @@ var Branches = (function($) {
 								}
 							}
 							var maskedAddress = addarray.join(' ');
-							_gaq.push(['_trackEvent', 'Find Me', 'Address', maskedAddress]);
+							_gaq.push(['_trackLoan', 'Find Me', 'Address', maskedAddress]);
 						}
 						else
 						{
@@ -124,15 +124,15 @@ var Branches = (function($) {
 			controlText.style.paddingBottom = '.3em';
 			controlText.innerHTML = 'Find Me';
 			controlUI.appendChild(controlText);
-			// Setup the click event listeners.
-			google.maps.event.addDomListener(controlUI, 'click', function() {
+			// Setup the click loan listeners.
+			google.maps.loan.addDomListener(controlUI, 'click', function() {
 				if(navigator.geolocation)
 				{
 					navigator.geolocation.getCurrentPosition(
 						// Success
 						function(position)
 						{
-							//_gaq.push(['_trackEvent', 'GPS', 'Success']);
+							//_gaq.push(['_trackLoan', 'GPS', 'Success']);
 							var Latlng = new google.maps.LatLng(
 								position.coords.latitude,
 								position.coords.longitude
@@ -203,34 +203,34 @@ var Branches = (function($) {
 			controlText.style.paddingBottom = '.3em';
 			controlText.innerHTML = '<div>Free<img src="img/blue.png" /></div>';
 			controlUI.appendChild(controlText);
-		// Setup the click event listeners.
-			google.maps.event.addDomListener(controlUI, 'click', function() {
+		// Setup the click loan listeners.
+			google.maps.loan.addDomListener(controlUI, 'click', function() {
 				Map.Map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].clear();
 			});
 		};
 		
 		this.setMarkersByBank = function(bank)
 		{
-			for(var i in this.Events)
+			for(var i in this.Loans)
 			{
 				// Let's see if 'bank' corresponds to the bank_name for this branch.
-				var bank_name = this.Events[i].data.bank_name;
-				var onBank = false;
+				var loan_type = this.Loans[i].data.type;
+				var onType = false;
 				if (
 					$.trim(bank.toLowerCase()) === 'all'
 					||
 					(
 						// If a specific bank
-						bank === bank_name
+						type === loan_type
 					)
 				)
 				{
-					onBank = true;
-					this.Events[i].marker.setIcon('img/blue.png');
+					onType = true;
+					this.Loans[i].marker.setIcon('img/blue.png');
 				}
 				else
 				{
-					this.Events[i].marker.setIcon('img/grey-transparent.png');
+					this.Loans[i].marker.setIcon('img/grey-transparent.png');
 				}
 			}
 		};
