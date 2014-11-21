@@ -89,9 +89,6 @@
 			if (type in ['all', 'business','cre','nonprofit']) {
 				Portfolio.setMarkersByType(type);
 			}
-			else {
-				Portfolio.setMarkersByType('all');
-			}
 		})
 		.fail(function(){
 			alert('Oh, no! We are having trouble getting the information we need from storage.');
