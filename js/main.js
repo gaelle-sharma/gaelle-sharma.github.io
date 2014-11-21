@@ -71,12 +71,12 @@
 		/**
 		 * The UPB Loan Finder application object
 		 */
-		var Loan = new Loans(Default.infoboxoptions);
+		var Portfolio = new PortfolioLoans(Default.infoboxoptions);
 		
-		if(Loan.geolocate)
+		if(Portofolio.geolocate)
 		{
 			var FindMeDiv = document.createElement('div');
-			Loan.setFindMeControl(FindMeDiv,Map,Loan,Default);
+			Portfolio.setFindMeControl(FindMeDiv,Map,Portfolio,Default);
 			FindMeDiv.index = 1;
 			Map.Map.controls[google.maps.ControlPosition.TOP_RIGHT].push(FindMeDiv);
 		}
@@ -90,9 +90,9 @@
 		.done(function (ftdata) {
 			LoansFT.columns = ftdata.columns;
 			LoansFT.rows = ftdata.rows;
-			Loan.getLoans(LoansFT.columns,LoansFT.rows,Map);
+			Portfolio.getLoans(LoansFT.columns,LoansFT.rows,Map);
 			// Highlight all loans regardless of type.
-			Loan.setMarkersByType('all');
+			Portfolio.setMarkersByType('all');
 		})
 		.fail(function(){
 			alert('Oh, no! We are having trouble getting the information we need from storage.');
@@ -112,10 +112,10 @@
 			// Selected today's loans
 			Loan.setMarkersByType('all');
 			
-		}); // END Bank dropup listener
+		}); // END Loan type dropup listener
 		
 		/*
-		 * The Bank dropup list listener
+		 * The Loan type dropup list listener
 		 */
 		$('.type').click(function(){
 			
@@ -131,14 +131,14 @@
 			// Select the day's loans
 			Loan.setMarkersByType($(this).text());
 			
-		}); // END Day dropup listener
+		}); // END Type dropup listener
 		
 		$('#nav-address').change(function(){
 			if($(this).val().length === 0)
 			{
-				if(Loan.AddressMarker !== null)
+				if(Portfolio.AddressMarker !== null)
 				{
-					Loan.AddressMarker.setMap(null);
+					Portfolio.AddressMarker.setMap(null);
 				}
 			}
 		});
@@ -165,9 +165,9 @@
 								Map.Map.panTo(Results[0].geometry.location);
 								Map.Map.setZoom(Default.zoomaddress);
 								// Make a map marker if none exists yet
-								if(Loan.AddressMarker === null)
+								if(Portfolio.AddressMarker === null)
 								{
-									Loan.AddressMarker = new google.maps.Marker({
+									Portfolio.AddressMarker = new google.maps.Marker({
 										position:Results[0].geometry.location,
 										map: Map.Map,
 										icon:Default.iconlocation,
@@ -177,11 +177,11 @@
 								else
 								{
 									// Move the marker to the new location
-									Loan.AddressMarker.setPosition(Results[0].geometry.location);
+									Portfolio.AddressMarker.setPosition(Results[0].geometry.location);
 									// If the marker is hidden, unhide it
-									if(Loan.AddressMarker.getMap() === null)
+									if(Portfolio.AddressMarker.getMap() === null)
 									{
-										Loan.AddressMarker.setMap(Map.Map);
+										Portfolio.AddressMarker.setMap(Map.Map);
 									}
 								}
 								if($('#navbar-button').is(':visible'))
@@ -242,4 +242,4 @@
 		});
 		
 	}); // END jQuery on document ready
-})(jQuery,TkMap,FusionTable,Loans);
+})(jQuery,TkMap,FusionTable,PortfolioLoans);
