@@ -16,7 +16,7 @@ var Borrowers = (function($) {
 		
 		this.getLoans = function(columns,rows,Map)
 		{
-			// Copy the loans data to the Loans object
+			// Copy the loan data to the Loan object
 			for (var i in rows)
 			{
 				this.Loans[i] = new Loan();
@@ -209,7 +209,7 @@ var Borrowers = (function($) {
 			});
 		};
 		
-		this.setMarkersByType = function(bank)
+		this.setMarkersByType = function(type)
 		{
 			for(var i in this.Loans)
 			{
