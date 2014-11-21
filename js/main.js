@@ -103,13 +103,13 @@
 			// Change the UI
 			$('#nav-li-types,.type-btn').removeClass('active');
 			$('#nav-li-all').addClass('active');
-			$('#nav-types-text').text('Type');
+			$('#nav-types-text').text('Loan Type');
 			if($('#navbar-button').is(':visible'))
 			{
 				$('#navbar-button').click();
 			}
 			
-			// Selected today's loans
+			// Selected loans
 			Portfolio.setMarkersByType('all');
 			
 		}); // END Loan type dropup listener
@@ -128,7 +128,7 @@
 				$('#navbar-button').click();
 			}
 			
-			// Select the day's loans
+			// Select the a specific loan type
 			Portfolio.setMarkersByType($(this).text());
 			
 		}); // END Type dropup listener
