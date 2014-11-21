@@ -623,7 +623,7 @@ InfoBox.prototype.setPosition = function (latlng) {
    * @name InfoBox#position_changed
    * @loan
    */
-  google.maps.loan.trigger(this, "position_changed");
+  google.maps.event.trigger(this, "position_changed");
 };
 
 /**
@@ -644,7 +644,7 @@ InfoBox.prototype.setZIndex = function (index) {
    * @name InfoBox#zindex_changed
    * @loan
    */
-  google.maps.loan.trigger(this, "zindex_changed");
+  google.maps.event.trigger(this, "zindex_changed");
 };
 
 /**
@@ -711,7 +711,7 @@ InfoBox.prototype.open = function (map, anchor) {
   if (anchor) {
 
     this.position_ = anchor.getPosition();
-    this.moveListener_ = google.maps.loan.addListener(anchor, "position_changed", function () {
+    this.moveListener_ = google.maps.event.addListener(anchor, "position_changed", function () {
       me.setPosition(this.getPosition());
     });
   }
@@ -732,29 +732,29 @@ InfoBox.prototype.close = function () {
 
   if (this.closeListener_) {
 
-    google.maps.loan.removeListener(this.closeListener_);
+    google.maps.event.removeListener(this.closeListener_);
     this.closeListener_ = null;
   }
 
-  if (this.loanListener1_) {
+  if (this.eventListener1_) {
 
-    google.maps.loan.removeListener(this.loanListener1_);
-    google.maps.loan.removeListener(this.loanListener2_);
-    google.maps.loan.removeListener(this.loanListener3_);
-    this.loanListener1_ = null;
-    this.loanListener2_ = null;
-    this.loanListener3_ = null;
+    google.maps.event.removeListener(this.eventListener1_);
+    google.maps.event.removeListener(this.eventListener2_);
+    google.maps.event.removeListener(this.eventListener3_);
+    this.eventListener1_ = null;
+    this.eventListener2_ = null;
+    this.eventListener3_ = null;
   }
 
   if (this.moveListener_) {
 
-    google.maps.loan.removeListener(this.moveListener_);
+    google.maps.event.removeListener(this.moveListener_);
     this.moveListener_ = null;
   }
 
   if (this.contextListener_) {
 
-    google.maps.loan.removeListener(this.contextListener_);
+    google.maps.event.removeListener(this.contextListener_);
     this.contextListener_ = null;
   }
 
