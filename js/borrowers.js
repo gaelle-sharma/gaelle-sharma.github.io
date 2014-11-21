@@ -42,7 +42,7 @@ var Borrowers = (function($) {
 			for(var i in this.Loans)
 			{
 				// Listen for marker clicks
-				google.maps.loan.addListener(this.Loans[i].marker, 'click', this.Loans[i].toggleInfoBox(Map.Map,this.Loans[i]));
+				google.maps.event.addListener(this.Loans[i].marker, 'click', this.Loans[i].toggleInfoBox(Map.Map,this.Loans[i]));
 			}
 		};
 		
@@ -125,7 +125,7 @@ var Borrowers = (function($) {
 			controlText.innerHTML = 'Find Me';
 			controlUI.appendChild(controlText);
 			// Setup the click loan listeners.
-			google.maps.loan.addDomListener(controlUI, 'click', function() {
+			google.maps.event.addDomListener(controlUI, 'click', function() {
 				if(navigator.geolocation)
 				{
 					navigator.geolocation.getCurrentPosition(
@@ -204,7 +204,7 @@ var Borrowers = (function($) {
 			controlText.innerHTML = '<div>Free<img src="img/blue.png" /></div>';
 			controlUI.appendChild(controlText);
 		// Setup the click loan listeners.
-			google.maps.loan.addDomListener(controlUI, 'click', function() {
+			google.maps.event.addDomListener(controlUI, 'click', function() {
 				Map.Map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].clear();
 			});
 		};
