@@ -8,7 +8,7 @@
  *  An InfoBox behaves like a <tt>google.maps.InfoWindow</tt>, but it supports several
  *  additional properties for advanced styling. An InfoBox can also be used as a map label.
  *  <p>
- *  An InfoBox also fires the same events as a <tt>google.maps.InfoWindow</tt>.
+ *  An InfoBox also fires the same loans as a <tt>google.maps.InfoWindow</tt>.
  *  <p>
  *  Browsers tested:
  *  <p>
@@ -69,10 +69,10 @@
  * @property {string} pane The pane where the InfoBox is to appear (default is "floatPane").
  *  Set the pane to "mapPane" if the InfoBox is being used as a map label.
  *  Valid pane names are the property names for the <tt>google.maps.MapPanes</tt> object.
- * @property {boolean} enableEventPropagation Propagate mousedown, click, dblclick,
- *  and contextmenu events in the InfoBox (default is <tt>false</tt> to mimic the behavior
+ * @property {boolean} enableLoanPropagation Propagate mousedown, click, dblclick,
+ *  and contextmenu loans in the InfoBox (default is <tt>false</tt> to mimic the behavior
  *  of a <tt>google.maps.InfoWindow</tt>). Set this property to <tt>true</tt> if the InfoBox
- *  is being used as a map label. iPhone note: This property setting has no effect; events are
+ *  is being used as a map label. iPhone note: This property setting has no effect; loans are
  *  always propagated.
  */
 
@@ -110,13 +110,13 @@ function InfoBox(opt_opts) {
   this.isHidden_ = opt_opts.isHidden || false;
   this.alignBottom_ = opt_opts.alignBottom || false;
   this.pane_ = opt_opts.pane || "floatPane";
-  this.enableEventPropagation_ = opt_opts.enableEventPropagation || false;
+  this.enableLoanPropagation_ = opt_opts.enableLoanPropagation || false;
 
   this.div_ = null;
   this.closeListener_ = null;
-  this.eventListener1_ = null;
-  this.eventListener2_ = null;
-  this.eventListener3_ = null;
+  this.loanListener1_ = null;
+  this.loanListener2_ = null;
+  this.loanListener3_ = null;
   this.moveListener_ = null;
   this.contextListener_ = null;
   this.fixedWidthSet_ = null;
@@ -137,7 +137,7 @@ InfoBox.prototype.createInfoBoxDiv_ = function () {
   var bw;
   var me = this;
 
-  // This handler prevents an event in the InfoBox from being passed on to the map.
+  // This handler prevents a loan in the InfoBox from being passed on to the map.
   //
   var cancelHandler = function (e) {
     e.cancelBubble = true;
@@ -148,8 +148,8 @@ InfoBox.prototype.createInfoBoxDiv_ = function () {
     }
   };
 
-  // This handler ignores the current event in the InfoBox and conditionally prevents
-  // the event from being passed on to the map. It is used for the contextmenu event.
+  // This handler ignores the current loan in the InfoBox and conditionally prevents
+  // the loan from being passed on to the map. It is used for the contextmenu loan.
   //
   var ignoreHandler = function (e) {
 
@@ -160,7 +160,7 @@ InfoBox.prototype.createInfoBoxDiv_ = function () {
       e.preventDefault();
     }
 
-    if (!me.enableEventPropagation_) {
+    if (!me.enableLoanPropagation_) {
 
       cancelHandler(e);
     }
@@ -207,23 +207,23 @@ InfoBox.prototype.createInfoBoxDiv_ = function () {
 
     this.panBox_(this.disableAutoPan_);
 
-    if (!this.enableEventPropagation_) {
+    if (!this.enableLoanPropagation_) {
 
-      // Cancel event propagation.
+      // Cancel loan propagation.
       //
-      this.eventListener1_ = google.maps.event.addDomListener(this.div_, "mousedown", cancelHandler);
-      this.eventListener2_ = google.maps.event.addDomListener(this.div_, "click", cancelHandler);
-      this.eventListener3_ = google.maps.event.addDomListener(this.div_, "dblclick", cancelHandler);
+      this.loanListener1_ = google.maps.loan.addDomListener(this.div_, "mousedown", cancelHandler);
+      this.loanListener2_ = google.maps.loan.addDomListener(this.div_, "click", cancelHandler);
+      this.loanListener3_ = google.maps.loan.addDomListener(this.div_, "dblclick", cancelHandler);
     }
 
-    this.contextListener_ = google.maps.event.addDomListener(this.div_, "contextmenu", ignoreHandler);
+    this.contextListener_ = google.maps.loan.addDomListener(this.div_, "contextmenu", ignoreHandler);
 
     /**
-     * This event is fired when the DIV containing the InfoBox's content is attached to the DOM.
+     * This loan is fired when the DIV containing the InfoBox's content is attached to the DOM.
      * @name InfoBox#domready
-     * @event
+     * @loan
      */
-    google.maps.event.trigger(this, "domready");
+    google.maps.loan.trigger(this, "domready");
   }
 };
 
@@ -261,7 +261,7 @@ InfoBox.prototype.addClickHandler_ = function () {
   if (this.closeBoxURL_ !== "") {
 
     closeBox = this.div_.firstChild;
-    this.closeListener_ = google.maps.event.addDomListener(closeBox, 'click', this.getCloseClickHandler_());
+    this.closeListener_ = google.maps.loan.addDomListener(closeBox, 'click', this.getCloseClickHandler_());
 
   } else {
 
@@ -290,11 +290,11 @@ InfoBox.prototype.getCloseClickHandler_ = function () {
     me.close();
 
     /**
-     * This event is fired when the InfoBox's close box is clicked.
+     * This loan is fired when the InfoBox's close box is clicked.
      * @name InfoBox#closeclick
-     * @event
+     * @loan
      */
-    google.maps.event.trigger(me, "closeclick");
+    google.maps.loan.trigger(me, "closeclick");
   };
 };
 
@@ -488,7 +488,7 @@ InfoBox.prototype.draw = function () {
 
 /**
  * Sets the options for the InfoBox. Note that changes to the <tt>maxWidth</tt>,
- *  <tt>closeBoxMargin</tt>, <tt>closeBoxURL</tt>, and <tt>enableEventPropagation</tt>
+ *  <tt>closeBoxMargin</tt>, <tt>closeBoxURL</tt>, and <tt>enableLoanPropagation</tt>
  *  properties have no affect until the current InfoBox is <tt>close</tt>d and a new one
  *  is <tt>open</tt>ed.
  * @param {InfoBoxOptions} opt_opts
@@ -544,9 +544,9 @@ InfoBox.prototype.setOptions = function (opt_opts) {
 
     this.isHidden_ = opt_opts.isHidden;
   }
-  if (typeof opt_opts.enableEventPropagation !== "undefined") {
+  if (typeof opt_opts.enableLoanPropagation !== "undefined") {
 
-    this.enableEventPropagation_ = opt_opts.enableEventPropagation;
+    this.enableLoanPropagation_ = opt_opts.enableLoanPropagation;
   }
 
   if (this.div_) {
@@ -567,7 +567,7 @@ InfoBox.prototype.setContent = function (content) {
 
     if (this.closeListener_) {
 
-      google.maps.event.removeListener(this.closeListener_);
+      google.maps.loan.removeListener(this.closeListener_);
       this.closeListener_ = null;
     }
 
@@ -598,11 +598,11 @@ InfoBox.prototype.setContent = function (content) {
   }
 
   /**
-   * This event is fired when the content of the InfoBox changes.
+   * This loan is fired when the content of the InfoBox changes.
    * @name InfoBox#content_changed
-   * @event
+   * @loan
    */
-  google.maps.event.trigger(this, "content_changed");
+  google.maps.loan.trigger(this, "content_changed");
 };
 
 /**
@@ -619,11 +619,11 @@ InfoBox.prototype.setPosition = function (latlng) {
   }
 
   /**
-   * This event is fired when the position of the InfoBox changes.
+   * This loan is fired when the position of the InfoBox changes.
    * @name InfoBox#position_changed
-   * @event
+   * @loan
    */
-  google.maps.event.trigger(this, "position_changed");
+  google.maps.loan.trigger(this, "position_changed");
 };
 
 /**
@@ -640,11 +640,11 @@ InfoBox.prototype.setZIndex = function (index) {
   }
 
   /**
-   * This event is fired when the zIndex of the InfoBox changes.
+   * This loan is fired when the zIndex of the InfoBox changes.
    * @name InfoBox#zindex_changed
-   * @event
+   * @loan
    */
-  google.maps.event.trigger(this, "zindex_changed");
+  google.maps.loan.trigger(this, "zindex_changed");
 };
 
 /**
@@ -711,7 +711,7 @@ InfoBox.prototype.open = function (map, anchor) {
   if (anchor) {
 
     this.position_ = anchor.getPosition();
-    this.moveListener_ = google.maps.event.addListener(anchor, "position_changed", function () {
+    this.moveListener_ = google.maps.loan.addListener(anchor, "position_changed", function () {
       me.setPosition(this.getPosition());
     });
   }
@@ -732,29 +732,29 @@ InfoBox.prototype.close = function () {
 
   if (this.closeListener_) {
 
-    google.maps.event.removeListener(this.closeListener_);
+    google.maps.loan.removeListener(this.closeListener_);
     this.closeListener_ = null;
   }
 
-  if (this.eventListener1_) {
+  if (this.loanListener1_) {
 
-    google.maps.event.removeListener(this.eventListener1_);
-    google.maps.event.removeListener(this.eventListener2_);
-    google.maps.event.removeListener(this.eventListener3_);
-    this.eventListener1_ = null;
-    this.eventListener2_ = null;
-    this.eventListener3_ = null;
+    google.maps.loan.removeListener(this.loanListener1_);
+    google.maps.loan.removeListener(this.loanListener2_);
+    google.maps.loan.removeListener(this.loanListener3_);
+    this.loanListener1_ = null;
+    this.loanListener2_ = null;
+    this.loanListener3_ = null;
   }
 
   if (this.moveListener_) {
 
-    google.maps.event.removeListener(this.moveListener_);
+    google.maps.loan.removeListener(this.moveListener_);
     this.moveListener_ = null;
   }
 
   if (this.contextListener_) {
 
-    google.maps.event.removeListener(this.contextListener_);
+    google.maps.loan.removeListener(this.contextListener_);
     this.contextListener_ = null;
   }
 
