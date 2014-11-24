@@ -117,7 +117,6 @@
 			
 			// Change the UI
 			$('#nav-brand').removeClass('active');
-			$('#nav-li-types').addClass('active');
 			$('#nav-types-text').text($(this).text());
 			if($('#navbar-button').is(':visible'))
 			{
