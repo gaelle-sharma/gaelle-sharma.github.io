@@ -1,159 +1,41 @@
 <!DOCTYPE html>
-<html lang=en>
-<head>
-	<meta charset=utf-8>
-	<title>BankOn Branch Finder</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1">
-	<meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1" />
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<!-- Bootstrap -->
-	<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-	<style>
-		body { padding-bottom: 75px; }
-		.google-map-canvas,
-		.google-map-canvas * { .box-sizing(content-box); }
-		#map img { max-width: none; }
-		.dropdown-menu { background-color:#333; }
-		.dropdown-menu > li > a { color:#aaa; }
-		.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {background-color:#fff; color:#333; text-decoration:none;}
-	</style>
-	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-		<script src="js/ltIE9.min.js"></script>
-	<![endif]-->
-</head>
-<body>
-	
-	<div id=map style="position:absolute; top:0; bottom:50px; left:0; right:0;"></div>
-	
-	<nav class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
-		<div class="navbar-header">
-			<button id="navbar-button" type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a id="nav-brand" class="navbar-brand" data-toggle="modal" href="#modal-use">BankOn Locations</a>
-		</div>
-		<div class="collapse navbar-collapse navbar-ex1-collapse">
-			<ul class="nav navbar-nav">
-				<li id="nav-li-all" class="active"><a id="nav-all" href="#all">All</a></li>
-				<li id="nav-li-banks" class="dropdown">
-					<a id="nav-banks" href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="nav-banks-text">Bank</span><b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li>
-							<a href="#boa" id="nav-boa" class="bank">Bank of America</a>
-						</li>
-						<li>
-							<a href="#chase" id="nav-chase" class="bank">Chase</a>
-						</li>
-						<li>
-							<a href="#citi" id="nav-citi" class="bank">Citibank</a>
-						</li>
-						<li>
-							<a href="#fifth" id="nav-fifth" class="bank">Fifth Third</a>
-						</li>
-						<li>
-							<a href="#guaranty" id="nav-guaranty" class="bank">Guaranty Bank</a>
-						</li>
-						<li>
-							<a href="#isfs" id="nav-isfs" class="bank">Illinois Service Federal</a>
-						</li>
-						<li>
-							<a href="#marquette" id="nav-marquette" class="bank">Marquette Bank</a>
-						</li>
-						<li>
-							<a href="#mb" id="nav-mb" class="bank">MB Financial</a>
-						</li>
-						<li>
-							<a href="#pnc" id="nav-pnc" class="bank">PNC Bank</a>
-						</li>
-						<li>
-							<a href="#ssc" id="nav-ssc" class="bank">South Side Community FCU</a>
-						</li>
-						<li>
-							<a href="#tcf" id="nav-tcf" class="bank">TCF</a>
-						</li>
-						<li>
-							<a href="#upb" id="nav-upb" class="bank">Urban Partnership Bank</a>
-						</li>
-					</ul>
-				</li>
-			</ul>
-			<form class="navbar-form navbar-left" onSubmit="$('#nav-go').click(); return false;" role="search">
-				<div class="form-group">
-					<input id="nav-address" type="text" class="form-control input-sm" placeholder="Enter an address">
-				</div>
-				<button id="nav-go" class="btn btn-default btn-sm" type="button">Go</button>
-			</form>
-			<a id="nav-agency" class="navbar-text pull-right" data-toggle="modal" href="#modal-appinfo"><small>BankOn Chicago</small></a>
-		</div>
-	</nav>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
-	<!-- App Info Modal -->
-	<div class="modal fade" id="modal-appinfo" tabindex="-1">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Notes</h4>
-				</div>
-				<div class="modal-body">
-					<small>Built by Gaelle Sharma, based on the <a href="http://chicagoflushots.org" target="_blank">Chicago Flu Shot Finder</a> developed by Tom Kompare.</small>
-					<p><button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button><br></p>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<!-- Use Info Modal -->
-	<div class="modal fade" id="modal-use" tabindex="-1">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Learn More</h4>
-				</div>
-				<div class="modal-body">
-					<small>Welcome to the BankOn Chicago branch finder. If your device has GPS, you may click on the <i>Find Me</i> button to see locations near you. You may enter your address and click on <i>Go</i> to do the same. Click on <i>Bank</i> to highlight branch locations available for a specific bank. <br><br><a href="http://http://www.bankonchicago.com" target="_blank">Click here for more information about BankOn Chicago.</a></small>
-					<p><br><button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button><br></p>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script>
-		window.jQuery
-			|| document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')
-	</script>
-	<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyDS9x0ibRw04exp7JgjINfQtfdd5Nch_fY&sensor=true"></script>
-	
-	<!--Everything below is included in main-->
-	<script src="js/jquery-migrate-1.2.1.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/date.js"></script>
-	<script src="js/infobox.js"></script>
-	<script src="js/tkmap.4.0.0.js"></script>
-	<script src="js/fusiontable.js"></script>
-	<script src="js/event.js"></script>
-	<script src="js/branches.js"></script>
-	<script src="js/main.js"></script>
-	
+    <title>Guide</title>
 
-	<script src="js/main.js"></script>
-	<script type="text/javascript">
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', 'UA-41738668-3']);
-		_gaq.push(['_trackPageview']);
-	
-		(function() {
-			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		})();
-	</script>
-</body>
+    <!-- CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/starter-template.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- Javascript -->
+    <script src="./jquery.js"></script>
+    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.autocomplete.min.js"></script>
+    <script type="text/javascript" src="js/currency-autocomplete.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="page-header">
+        <h1>International Payments Guide</h1>
+      </div>
+      <p>
+        <div class="input-group" id="searchfield">
+          <input type="text" class="form-control" placeholder="Search for a country..." name="currency" class="biginput" id="autocomplete">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+          </span>
+        </div>
+      </p>
+    </div>
+
+  </body>
 </html>
