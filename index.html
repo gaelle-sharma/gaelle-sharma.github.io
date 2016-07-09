@@ -1,49 +1,117 @@
----
-layout: default
-title: Events
-description: Recent and upcoming hack nights, with links to each event's video livestream, projects, people, and data. 
----
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <title>Task List</title>
+    <meta charset='utf-8' />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta content='{{ site.name }}' name='author' />
 
-<!-- Begin page content-->
-<h1>
-  <small id='event-count'>
-    {{site.categories['events'].size }}
-  </small>
-  Past events
-</h1>
-<p>Past and upcoming hack night presentations, with links to each event's video livestream, projects, people, and data. <br /><a href='/event_feed.xml'><i class='fa fa-rss-square'></i> RSS feed</a></p>
+    <link rel="icon" type="image/png" href="https://chihacknight.org/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="https://chihacknight.org/favicon-16x16.png" sizes="16x16" />
+    <meta name="application-name" content="Task List"/>
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.flatly.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
 
-<table id='hack-night-events' class='table table-striped'>
-  <thead>
-    <tr itemscope itemtype='http://schema.org/Event'>
-      <th>Task #</th>
-      <th>Task</th>
-      <th>Due Date</th>
-      <th>Lead(s)</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for post in site.categories['events'] %}
-      <tr>
-        <td class='nowrap'>
-            <meta itemprop='startDate' datetime='{{ post.date | date: "%Y-%m-%d" }}' content='{{ post.date | date: "%Y-%m-%d" }}' />
-            <p>{{ post.date | date: "%b %-d, %Y" }}</p>
-        </td>
-        <td>{{post.event_id}}</td>
-        <td>
-          <a href='{{ post.url }}' itemprop='url'><span itemprop='name'>{{ post.title }}</span></a>
-          {% if post.youtube_id %}
-            <small><i title='This event has a video' class='fa fa-fw fa-video-camera'></i></small>
-          {% endif %}
-        </td>
-        <td>
-          {% for speaker in post.speakers %}
-            {{speaker}}<br />
-          {% endfor %}
-        </td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
+    <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.css">
 
-<script src="/lib/events.js"></script>
+    <!-- Custom styles for this template -->
+    <link href="css/custom.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery-1.10.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/analytics_lib.js"></script>
+
+    <script src="js/moment.min.js"></script>
+    <script src="js/jquery.dataTables.min.js"></script>
+    <script src="js/dataTables.bootstrap.js"></script>
+    <script src="js/jquery.dataTables.sorting.js"></script>
+    <script src="js/jquery.address.js"></script>
+    <script src="js/mustache.js"></script>
+    <script src="js/spin.min.js"></script>
+    <script src="js/jquery.spin.js"></script>
+    <script src="js/jquery.scrollto.js"></script>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-inverted navbar-static-top">
+      <div class="container">
+        <div class='col-sm-10 col-sm-offset-1'>
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><img src='/images/logo/logo.png' alt='Chi Hack Night' title='Chi Hack Night' class='img-responsive' /></a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href='/about.html'>About</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </nav>
+
+
+    <div class="container">
+      <div id='primary-content' class='col-sm-10 col-sm-offset-1'>
+        <h1>
+          <small id='event-count'>
+            {{site.categories['events'].size }}
+          </small>
+          Task List
+        </h1>
+        <p>List of work in progress. <br /></p>
+
+        <table id='task-list' class='table table-striped'>
+          <thead>
+            <tr itemscope itemtype='http://schema.org/Event'>
+              <th>Task #</th>
+              <th>Task</th>
+              <th>Due Date</th>
+              <th>Lead(s)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for post in site.categories['events'] %}
+              <tr>
+                <td>{{post.event_id}}</td>
+                <td>
+                  <a href='{{ post.url }}' itemprop='url'><span itemprop='name'>{{ post.title }}</span></a>
+                  {% if post.youtube_id %}
+                    <small><i title='This event has a video' class='fa fa-fw fa-video-camera'></i></small>
+                  {% endif %}
+                </td>
+                <td class='nowrap'>
+                    <meta itemprop='startDate' datetime='{{ post.date | date: "%Y-%m-%d" }}' content='{{ post.date | date: "%Y-%m-%d" }}' />
+                    <p>{{ post.date | date: "%b %-d, %Y" }}</p>
+                </td>
+                <td>
+                  {% for speaker in post.speakers %}
+                    {{speaker}}<br />
+                  {% endfor %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <script src="lib/events.js"></script>
+      </div>
+    </div> <!-- /container -->
+  </body>
+</html>
