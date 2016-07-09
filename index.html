@@ -1,0 +1,49 @@
+---
+layout: default
+title: Events
+description: Recent and upcoming hack nights, with links to each event's video livestream, projects, people, and data. 
+---
+
+<!-- Begin page content-->
+<h1>
+  <small id='event-count'>
+    {{site.categories['events'].size }}
+  </small>
+  Past events
+</h1>
+<p>Past and upcoming hack night presentations, with links to each event's video livestream, projects, people, and data. <br /><a href='/event_feed.xml'><i class='fa fa-rss-square'></i> RSS feed</a></p>
+
+<table id='hack-night-events' class='table table-striped'>
+  <thead>
+    <tr itemscope itemtype='http://schema.org/Event'>
+      <th>Date</th>
+      <th>#</th>
+      <th>Event</th>
+      <th>Speaker(s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for post in site.categories['events'] %}
+      <tr>
+        <td class='nowrap'>
+            <meta itemprop='startDate' datetime='{{ post.date | date: "%Y-%m-%d" }}' content='{{ post.date | date: "%Y-%m-%d" }}' />
+            <p>{{ post.date | date: "%b %-d, %Y" }}</p>
+        </td>
+        <td>{{post.event_id}}</td>
+        <td>
+          <a href='{{ post.url }}' itemprop='url'><span itemprop='name'>{{ post.title }}</span></a>
+          {% if post.youtube_id %}
+            <small><i title='This event has a video' class='fa fa-fw fa-video-camera'></i></small>
+          {% endif %}
+        </td>
+        <td>
+          {% for speaker in post.speakers %}
+            {{speaker}}<br />
+          {% endfor %}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<script src="/lib/events.js"></script>
