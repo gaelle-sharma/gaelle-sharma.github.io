@@ -4,12 +4,10 @@ Gaelle is testing an idea
 
 ## Running locally
 
-This website is built using Jekyll. You will need to [install it first](http://jekyllrb.com/docs/installation/).
+This website is built using Jekyll.
 
 ```console
-git clone https://github.com/chihacknight/chihacknight.org.git
-cd chihacknight.org
-jekyll serve -w
+jekyll serve
 ```
 
 Then open your web browser and navigate to http://localhost:4000
