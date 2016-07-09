@@ -1,19 +1,11 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely need to edit after that.
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'jekyll serve'. If you change this file, please restart the server process.
-
-# Site settings
-title: TaskList
-email: your-email@domain.com
-description: > # this means to ignore newlines until "baseurl:"
-  Testing out an idea for project management.
-baseurl: "http://gaelle2030.github.io" # the subpath of your site, e.g. /blog
-url: "http://gaelle2030.github.io" # the base hostname & protocol for your site
-twitter_username: gaelle2030
-github_username:  gaelle2030
-
-# Build settings
+port:  4000
 markdown: kramdown
+name: TaskList
+url: http://gaelle2030.github.io
+title: TaskList
+description: "Tracking tasks for project management."
+encoding: utf-8
+timezone: America/New_York
+gems:
+  - jekyll-redirect-from
+future: true
