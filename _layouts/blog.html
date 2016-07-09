@@ -2,66 +2,110 @@
 layout: default
 ---
 
-<div class='row'>
-  <div class="col-sm-10 col-sm-offset-1 post">
-    <h2>
-      {{ page.title }}
-    </h2>
-    <p class='muted'>
-      Published on {{ page.date | date: "%b %-d, %Y" }} by
-      {{page.author}}
-      {% if page.author2 %}
-        , {{page.author2}}
+<div itemscope itemtype="http://schema.org/Event">
+  <h3>
+    <a href='/events'>Events</a> > <time itemprop="startDate" datetime={{ page.date | date: "%Y-%m-%d" }}>{{ page.date | date: "%B %-d, %Y" }}</time>
+  </h3>
+  <h1>
+    <small>#{{page.event_id}}</small>
+    <span itemprop="name">{{page.title}}</span>
+  </h1>
+  <hr />
+
+  <div class='row'>
+    {% if site.time <= page.date %}
+      <div class='col-sm-7'>
+    {% else %}
+      <div class='col-sm-12'> 
+    {% endif %}
+
+      {% if page.youtube_id %}
+        <iframe width="100%" height="580" src="https://www.youtube.com/embed/{{page.youtube_id}}" frameborder="0" allowfullscreen></iframe>
+        <hr />
+      {% elsif site.time >= page.date and page.image %}
+        <p>
+          <img class='img-responsive img-thumbnail' src='{{page.image}}' alt='{{page.title}}' />
+        </p>
       {% endif %}
-    </p>
 
-    {{ content }}
+      {% if site.time <= page.date %}
+        <p><a class='btn btn-success' href='http://chihacknight.eventbrite.com/'>RSVP &raquo;</a></p>
+      {% endif %}
 
-    <hr />
+      <span itemprop="description">{{content}}</span>
 
-    <h3>About the author</h3>
+      <hr />
+      {% if page.agenda %}
+        <i class='fa fa-file-text-o fa-fw'></i> <a href='{{page.agenda}}' target='_blank'>Agenda and meeting notes</a><br />
+      {% endif %}
+      <i class='fa fa-group fa-fw'></i> <a href='/breakouts.html'> Breakout groups</a><br />
+      <i class='fa fa-smile-o fa-fw'></i> <a href='/code-of-conduct.html'> Code of conduct</a><br />
+      <i class='fa fa-cutlery fa-fw'></i> Sponsor {{page.sponsor}}<br />
 
-    <div class='row'>
-      <div class='col-sm-3'>
-
-        {% if page.author_url %}
-          <a href='{{page.author_url}}'>
-            <img class='img-rounded author-headshot hidden-phone' src='{{page.author_image}}' alt='{{page.author}}' />
-          </a>
-          <h4>
-            <a href='{{page.author_url}}'>{{page.author}}</a>
-          </h4>
-        {% else %}
-          <img class='img-rounded author-headshot hidden-phone' src='{{page.author_image}}' alt='{{page.author}}' />
-          <h4>{{page.author}}</h4>
-        {% endif %}
-      </div>
-      <div class='col-sm-9'>
-        <p><br />{{ page.author_bio }}</p>
-      </div>
+      {% if page.links %}
+        <hr />
+        <h4>Links</h4>
+        <ul>
+        {% for link in page.links %}
+          <li>{{link}}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
     </div>
-
-    {% if page.author2 %}
-      <div class='row'>
-        <div class='col-sm-3'>
-
-          {% if page.author2_url %}
-            <a href='{{page.author2_url}}'>
-              <img class='img-rounded author-headshot hidden-phone' src='{{page.author2_image}}' alt='{{page.author2}}' />
-            </a>
-            <h4>
-              <a href='{{page.author2_url}}'>{{page.author2}}</a>
-            </h4>
-          {% else %}
-            <img class='img-circle author-headshot hidden-phone' src='{{page.author2_image}}' alt='{{page.author2}}' />
-            <h4>{{page.author2}}</h4>
+    {% if site.time <= page.date %}
+      <div class='col-sm-5'>
+        <div class='well'>
+          {% if page.image %}
+            <p><img class='img-responsive img-thumbnail' src='{{page.image}}' alt='{{page.title}}' /></p>
           {% endif %}
-        </div>
-        <div class='col-sm-9'>
-          <p><br />{{ page.author2_bio }}</p>
+         
+          6pm<br />Tuesday, {{ page.date | date: "%B %-d, %Y" }}<br />
+          <div itemprop="location" itemscope itemtype="http://schema.org/Place">
+            <br />
+            <span itemprop="name">Braintree office</span><br />
+            <a href='https://maps.google.com/maps?q=222+W+Merchandise+Mart+Plz+Chicago'>
+              <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                <span itemprop="streetAddress">222 W Merchandise Mart Plz
+                 <br />8th Floor</span><br />
+                <span itemprop="addressLocality">Chicago</span>,
+                <span itemprop="addressRegion">IL</span>
+              </div>
+            </a><br />
+            When you arrive in the Merchandise Mart, take the center elevators to the 8th floor.
+          </div>
+          
         </div>
       </div>
     {% endif %}
   </div>
-  
+</div>
+
+<div class='row'>
+  <div class='col-sm-12'>
+
+    <hr />
+    <h4 id='slideshow-header' style='display: none;'>Flickr photos from Chi Hack Night #{{page.event_id}}</h4>
+    <div class='slideshow'></div>
+    <p>Have a photo of this event? Upload it to <a href='http://flickr.com'>Flickr</a> and tag it with <strong><a href='https://www.flickr.com/search/?tags=chihacknight{{page.event_id}}'>chihacknight{{page.event_id}}</a></strong></p>
+
+    <script src="/js/galleria/galleria.js"></script>
+    <script src="/js/galleria/plugins/flickr/galleria.flickr.js"></script>
+    <script>
+      var flickr = new Galleria.Flickr();
+        flickr.tags('chihacknight-{{page.event_id}}, chihacknight{{page.event_id}}', function(data) {
+            // Should we show or hide the slideshow?
+            var $slideshow = $(".slideshow");
+            if (data.length) {
+              $slideshow.css({height: 600, marginBottom: 20});
+              $('#slideshow-header').show()
+            } else {
+              $slideshow.hide();
+            }
+            Galleria.loadTheme('/js/galleria/themes/classic/galleria.classic.js');
+            Galleria.run('.slideshow', {
+                dataSource: data
+            });
+        });
+    </script>
+  </div>
 </div>
