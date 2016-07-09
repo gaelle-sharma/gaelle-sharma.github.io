@@ -55,7 +55,6 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"><img src='/images/logo/logo.png' alt='Chi Hack Night' title='Chi Hack Night' class='img-responsive' /></a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -70,9 +69,7 @@
     <div class="container">
       <div id='primary-content' class='col-sm-10 col-sm-offset-1'>
         <h1>
-          <small id='event-count'>
-            {{site.categories['events'].size }}
-          </small>
+          <small id='event-count'>1</small>
           Task List
         </h1>
         <p>List of work in progress. <br /></p>
@@ -87,26 +84,18 @@
             </tr>
           </thead>
           <tbody>
-            {% for post in site.categories['events'] %}
               <tr>
-                <td>{{post.event_id}}</td>
-                <td>
-                  <a href='{{ post.url }}' itemprop='url'><span itemprop='name'>{{ post.title }}</span></a>
-                  {% if post.youtube_id %}
-                    <small><i title='This event has a video' class='fa fa-fw fa-video-camera'></i></small>
-                  {% endif %}
-                </td>
-                <td class='nowrap'>
-                    <meta itemprop='startDate' datetime='{{ post.date | date: "%Y-%m-%d" }}' content='{{ post.date | date: "%Y-%m-%d" }}' />
-                    <p>{{ post.date | date: "%b %-d, %Y" }}</p>
-                </td>
-                <td>
-                  {% for speaker in post.speakers %}
-                    {{speaker}}<br />
-                  {% endfor %}
-                </td>
+                <td>1</td>
+                <td>Test the task description display.</td>
+                <td>01/06/2020</td>
+                <td>Molly Moon</td>
               </tr>
-            {% endfor %}
+              <tr>
+                <td>2</td>
+                <td>Add each task item to be tracked.</td>
+                <td>01/12/2020</td>
+                <td>Teddy Moon</td>
+              </tr>
           </tbody>
         </table>
 
