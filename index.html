@@ -72,7 +72,7 @@
         </h1>
         <p>List of work in progress. <br /></p>
 
-        <table id='tasklist' class='table table-striped'>
+        <table id='tasklist' class='table table-striped dataTable no-footer' role="grid">
           <thead>
             <tr>
               <th>Task</th>
@@ -92,6 +92,8 @@
           $( document ).ready(function() {
               $('#tasklist').dataTable({
                   "ajax": "data/data.json",
+                  "paging": false,
+                  "info": false,
                   "columns": [
                       {"data": "id"},
                       {"data": "date"},
@@ -102,7 +104,6 @@
           });
         </script>
 
-        <script src="lib/events.js"></script>
       </div>
     </div> <!-- /container -->
   </body>
