@@ -2,22 +2,186 @@
 layout: default
 ---
 
-<div class="home">
+<div class='row'>
+  <div class='col-sm-12'>
+    <p class='h2'>Chicago's weekly event to build, share &amp; learn about civic tech<br /><br /></p> 
+  </div>
+</div>
 
-  <h1 class="page-heading">Posts</h1>
+<!-- <div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><b>Next Chi Hack Night</b></h3>
+  </div>
+  <div class="panel-body">
+    <h2>See you in 2016!</h2>
+    <p>We’re taking the last 2 weeks of 2015 off for the holiday. We'll be back on <strong>Jan 5th, 2016!</strong></p>
+    <p>Until then, read the <a href='http://chihacknight.org/blog/2015/12/22/chi-hack-night-2015-year-in-review.html'>Chi Hack Night 2015 Year in Review!</a></p>
+  </div>
+</div> -->
 
-  <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
 
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
-      </li>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><b>Next Chi Hack Night</b></h3>
+  </div>
+  <div class="panel-body">
+    {% for post in site.categories['events'] limit:1 %}
+    <strong>6pm Tuesday, {{ post.date | date: "%b %-d, %Y" }}</strong>
+    <h2 class='no-margin-top'>
+      <small>#{{post.event_id}}</small>
+      <a href="{{post.url}}">{{post.title}}</a>
+    </h2>
+    <div class='row'>
+      <div class='col-sm-7'>
+        {% if post.description %}
+          <p>{{ post.description }}</p>
+        {% endif %}
+        <br />
+        {% if site.time <= post.date %}
+          <a class='btn btn-success btn-lg' href="http://chihacknight.eventbrite.com/" target='_blank'>RSVP</a>
+        {% endif %}
+        <a class='btn btn-link btn-lg' href="{{post.url}}"><i class='fa fa-info-circle'></i> Details</a>
+        <a class='btn btn-link btn-lg' href="{{post.agenda}}" target='_blank'><i class='fa fa-file-text-o'></i> Agenda</a>
+      </div>
+      <div class='col-sm-5'>
+        {% if post.image %}
+          <a href="{{post.url}}"><img class='img-responsive img-thumbnail' src='{{post.image}}' alt='{{post.title}}' /></a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<div class='row'>
+  <div class='col-sm-12'>
+
+    <h2 id='about'>Welcome!</h2>
+
+    <p><iframe frameborder="0" height="450" src="https://www.youtube.com/embed/j3Ltxgiw46o" width="100%"></iframe></p>
+
+    <p>Join us every Tuesday from 6-10pm on the 8th floor of the Merchandise Mart to hear from <a href='/events/index.html'>amazing speakers</a>, <a href='/breakouts.html#learning'>learn from each other</a> and <a href='/breakouts.html#working'>work on civic projects</a>. <a href='/about.html#everyone'><strong>Everyone is welcome!</strong></a></p>
+
+    <p>We are a group of thousands of designers, academic researchers, data journalists, activists, policy wonks, web developers and curious citizens who want to make our city more just, equitable, transparent and delightful to live in through data, design and technology. <a href='/about.html'>More about us »</a></p>
+
+    <hr />
+    <h2 id='community'>Join our community</h2>
+
+    <p>Chi Hack Night is a central hub for <a href='/community.html'>Chicago's civic tech community</a>. Here's the three best ways to get involved:</p>
+
+    <div class='row text-center'>
+      <div class='col-sm-4'>
+        <div class='well'>
+          <h1><i class='fa fa-fw fa-calendar'></i></h1>
+          <p>1. Go to Chi Hack Night. <a href='http://chihacknight.eventbrite.com/'>We meet every Tuesday at 6pm</a></p>
+        </div>
+      </div>
+
+      <div class='col-sm-4'>
+        <div class='well'>
+          <h1><i class='fa fa-fw fa-envelope'></i></h1>
+          <p>2. <a href='http://eepurl.com/z65hn'>Subscribe to updates</a> on upcoming speakers and events</p>
+        </div>
+      </div>
+
+      <div class='col-sm-4'>
+        <div class='well'>
+          <h1><i class='fa fa-fw fa-group'></i></h1>
+          <p>3. Browse our <a href='/breakouts.html'>weekly breakouts</a> to find your group</p>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+    <h2 id='blog'>Blog <small><a href='/blog/'>All posts &raquo;</a></small></h2>
+    {% for post in site.categories['blog'] limit:1 %}
+      <div class='row'>
+        <div class='col-sm-4'>
+          {% if post.image %}
+            <img class='img-thumbnail img-responsive' src='{{post.image}}' alt='{{ post.title }}' />
+          {% else %}
+            <img class='img-thumbnail img-responsive' src='/images/logo/logo.png' alt='{{ post.title }}' />
+          {% endif %}
+        </div>
+        <div class='col-sm-8'>
+          <h4>
+            <a href='{{post.url}}'>{{ post.title }}</a>
+          </h4>
+          <p>
+            <small>{{ post.date | date: "%b %d, %Y" }} by 
+              <a class='muted' href='{{post.author_url}}'>{{post.author}}</a>
+              {% if post.author2 %}
+                , <a class='muted' href='{{post.author2_url}}'>{{post.author2}}</a>
+              {% endif %}
+            </small>
+            <br />
+            {{ post.description | markdownify }} <a href='{{post.url}}'>Read&nbsp;more&nbsp;&raquo;</a>
+          </p>
+          <br />
+        </div>
+      </div>
     {% endfor %}
-  </ul>
 
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+    <hr />
+    <div class='sponsors'>
 
+      <h2 id='sponsors'>Sponsors</h2>
+      <p>Chi Hack Night is organized by Derek Eder, Christopher Whitaker and members of our <a href='/leadership-council.html'>Leadership Council</a>, hosted at <a href='https://www.braintreepayments.com/'>Braintree</a> and supported by our amazing sponsors. DataMade is the fiscal sponsor.</p>
+
+      <div class='row'>
+        <div itemscope itemtype='http://schema.org/Organization' class='sponsor-details col-sm-3'>
+            <a href='http://datamade.us' itemprop='url'>
+                <img src='images/sponsors/datamade.png' alt='DataMade' itemprop='logo' class='img-responsive' />
+                <span itemprop='name'>DataMade</span>
+            </a>
+        </div>
+          
+        <div itemscope itemtype='http://schema.org/Organization' class='sponsor-details col-sm-3'>
+            <a href='https://www.braintreepayments.com/' itemprop='url'>
+                <img src='images/sponsors/braintree.png' alt='Braintree' itemprop='url' class='img-responsive' />
+                <span itemprop='name'>Braintree</span>
+            </a>
+        </div>
+
+        <div itemscope itemtype='http://schema.org/Organization' class='sponsor-details col-sm-3'>
+            <a href='http://microsoft-chicago.com' itemprop='url'>
+                <img src='images/sponsors/microsoft.png' alt='Microsoft' itemprop='logo' class='img-responsive' />
+                <span itemprop='name'>Microsoft</span>
+            </a>
+        </div>
+        <div itemscope itemtype='http://schema.org/Organization' class='sponsor-details col-sm-3'>
+            <a href='http://devbootcamp.com' itemprop='url'>
+                <img src='images/sponsors/devbootcamp.jpg' alt='Dev Bootcamp' itemprop='logo' class='img-responsive' />
+                <span itemprop='name'>Dev Bootcamp</span>
+            </a>
+        </div>
+      </div>
+      <div class='row'>
+        <div itemscope itemtype='http://schema.org/Organization' class='sponsor-details col-sm-3'>
+            <a href='http://hivechicago.org/' itemprop='url'>
+                <img src='images/sponsors/hive-chicago.jpg' alt='Mozilla Hive Chicago' itemprop='logo' class='img-responsive' />
+                <span itemprop='name'>Mozilla Hive Chicago</span>
+            </a>
+        </div>
+        <div itemscope itemtype='http://schema.org/Organization' class='sponsor-details col-sm-3'>
+            <a href='https://google.com/' itemprop='url'>
+                <img src='images/sponsors/google.jpg' alt='Google' itemprop='logo' class='img-responsive' />
+                <span itemprop='name'>Google</span>
+            </a>
+        </div>
+        <div itemscope itemtype='http://schema.org/Organization' class='sponsor-details col-sm-3'>
+            <a href='https://www.twilio.com/' itemprop='url'>
+                <img src='images/sponsors/twilio.png' alt='Twilio' itemprop='logo' class='img-responsive' />
+                <span itemprop='name'>Twilio</span>
+            </a>
+        </div>
+        <div itemscope itemtype='http://schema.org/Organization' class='sponsor-details col-sm-2'>
+            <a href='https://capp.sites.uchicago.edu/' itemprop='url'>
+                <img src='images/sponsors/uchicago_capp.png' alt='Master of Science in Computational Analysis and Public Policy at the University of Chicago' itemprop='logo' class='img-responsive' />
+                <span itemprop='name'>Master of Science in Computational Analysis and Public Policy at the University of Chicago</span>
+            </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
