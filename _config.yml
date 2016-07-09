@@ -6,6 +6,4 @@ title: TaskList
 description: "Tracking tasks for project management."
 encoding: utf-8
 timezone: America/New_York
-gems:
-  - jekyll-redirect-from
 future: true
