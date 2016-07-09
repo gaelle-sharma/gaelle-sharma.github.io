@@ -81,21 +81,21 @@
               <th>Lead(s)</th>
             </tr>
           </thead>
-          <tbody>
-              <tr>
-                <td>1</td>
-                <td>Test the task description display.</td>
-                <td>01/06/2020</td>
-                <td>Molly Moon</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Add each task item to be tracked.</td>
-                <td>01/12/2020</td>
-                <td>Teddy Moon</td>
-              </tr>
-          </tbody>
         </table>
+
+        <script type="text/javascript">
+          $( document ).ready(function() {
+              $('#task-list').dataTable({
+                  "ajax": "data/data.json",
+                  "columns": [
+                      {"data": "id"},
+                      {"data": "date"},
+                      {"data": "description"},
+                      {"data": "lead"},
+                  ]
+              });   
+          });
+        </script>
 
         <script src="lib/events.js"></script>
       </div>
