@@ -1,0 +1,38 @@
+---
+layout: default
+---
+
+<p><a href='/projects.html'>&laquo; Projects</a></p>
+
+<div class="row">
+  <div class="col-sm-12">
+    <a href='{{page.website}}'><img alt="{{page.title}}" class="img-thumbnail" src="{{page.image}}" /></a>
+
+    <h2>{{ page.title }}</h2>
+
+    <table class='table table-condensed'>
+      <tbody>
+        <tr>
+          <td>Website</td>
+          <td><a target='_blank' href='{{page.website}}'>{{page.title}}</a></td>
+        </tr>
+        <tr>
+          <td>Creators</td>
+          <td>{{page.creators}}</td>
+        </tr>
+        <tr>
+          <td>GitHub</td>
+          <td><a href='{{page.github}}'>{{page.github}}</a></td>
+        </tr>
+        <tr>
+          <td>Launched</td>
+          <td>{{page.date | date: "%B %Y"}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    {{ page.description | markdownify }}
+
+    {{ content }}
+  </div>
+</div>

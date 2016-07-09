@@ -1,41 +1,23 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+---
+layout: default
+---
 
-    <title>Guide</title>
+<div class="home">
 
-    <!-- CSS -->
-    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="dist/css/starter-template.css" rel="stylesheet">
-    <link href="dist/css/style.css" rel="stylesheet">
+  <h1 class="page-heading">Posts</h1>
 
-    <!-- Javascript -->
-    <script src="./jquery.js"></script>
-    <script type="text/javascript" src="dist/js/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" src="dist/js/jquery.autocomplete.min.js"></script>
-    <script type="text/javascript" src="dist/js/currency-autocomplete.js"></script>
-  </head>
+  <ul class="post-list">
+    {% for post in site.posts %}
+      <li>
+        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
 
-  <body>
-    <div class="container">
-      <div class="page-header">
-        <h1>International Payments Guide</h1>
-      </div>
-      <p>
-        <div class="input-group" id="searchfield">
-          <input type="text" class="form-control" placeholder="Search for a country..." name="currency" class="biginput" id="autocomplete">
-          <span class="input-group-btn">
-            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-          </span>
-        </div>
-      </p>
-    </div>
+        <h2>
+          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        </h2>
+      </li>
+    {% endfor %}
+  </ul>
 
-  </body>
-</html>
+  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+
+</div>
