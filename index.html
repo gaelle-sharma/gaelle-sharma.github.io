@@ -4,7 +4,7 @@
     <title>Task List</title>
     <meta charset='utf-8' />
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta content='{{ site.name }}' name='author' />
+    <meta content='Task List' name='author' />
 
     <meta name="application-name" content="Task List"/>
     <meta name="msapplication-TileColor" content="#FFFFFF" />
@@ -66,7 +66,7 @@
 
     <div class="container">
       <div id='primary-content' class='col-sm-10 col-sm-offset-1'>
-        <h1>Task List</h1>
+        <small id="event-count"></small><h1>Task List</h1>
         <p>List of work in progress. <br /></p>
 
         <table id='tasklist' class='table table-striped dataTable no-footer' role="grid">
@@ -81,21 +81,21 @@
         </table>
 
         <!-- load jquery -->
-        <script type="text/javascript" src="/path/to/jquery-1.10.2.js"></script>
+        <script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
         <!-- load datatables js library -->
-        <script type="text/javascript" src="/path/to/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
 
         <script type="text/javascript">
           $( document ).ready(function() {
               $('#tasklist').dataTable({
-                  "ajax": "data/data.json",
+                  "ajax": "data.json",
                   "paging": false,
                   "info": false,
                   "columns": [
-                      {"data": "id"},
-                      {"data": "date"},
-                      {"data": "description"},
-                      {"data": "lead"}
+                      {"tasks": "id"},
+                      {"tasks": "date"},
+                      {"tasks": "description"},
+                      {"tasks": "lead"}
                   ]
               });   
           });
