@@ -52,64 +52,52 @@
 
     <div class="container">
       <div id='primary-content' class='col-sm-10 col-sm-offset-1'>
-          <h1>
-            <i class="fa fa-tachometer" aria-hidden="true"></i>
-            Dashboard
-          </h1>
-          <hr>
-          <div class='row text-center'>
-            <div class='col-sm-4'>
-              <div class='well'>
-                <h1><a href='#'><i class='fa fa-fw fa-calendar'></i></a></h1>
-                <p>X days until Go-Live</p>
-              </div>
-            </div>
+        <div class='row'>
+          <div class='col-sm-12'>
+            <h1 id='project-team'>
+              <i class='fa fa-group'></i> 
+              <small id='data-count'></small>
+              Project Team
+            </h1>
+            <hr />
+            <p>Individuals contributing to the project.</p>
 
-            <div class='col-sm-4'>
-              <div class='well'>
-                <h1><a href='tasklist.html'><i class="fa fa-check-square-o" aria-hidden="true"></i></a></h1>
-                <p>3 tasks being tracked</p>
-              </div>
-            </div>
-
-            <div class='col-sm-4'>
-              <div class='well'>
-                <h1><a href='about.html'><i class="fa fa-wrench" aria-hidden="true"></i></a></h1>
-                <p>3 systems to configure</p>
-              </div>
-            </div>
+            <table id='projectteam-table' class='table table-striped'>
+              <thead>
+                <tr>
+                  <th class='name'>Name</th>
+                  <th>Division</th>
+                  <th>Email</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
           </div>
-          <hr>
-        
-          <h2>Progress to completion</h2> </br>
-          <div class="progress">
-            <div id="progress-bar" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-            </div>
-          </div>
-
-          <hr/>
+        </div>
 
 
         
-          <!-- Bootstrap core JavaScript
-          ================================================== -->
-          <!-- Placed at the end of the document so the pages load faster -->
-          <script src="js/jquery-1.10.1.min.js"></script>
-          <script src="js/bootstrap.min.js"></script>
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="js/jquery-1.10.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
 
-          <script src="js/moment.min.js"></script>
-          <script src="js/jquery.dataTables.min.js"></script>
-          <script src="js/dataTables.bootstrap.js"></script>
-          <script src="js/jquery.dataTables.sorting.js"></script>
-          <script src="js/jquery.address.js"></script>
-          <script src="js/mustache.js"></script>
-          <script src="js/spin.min.js"></script>
-          <script src="js/jquery.spin.js"></script>
-          <script src="js/jquery.scrollto.js"></script>
-          <script src="https://use.fontawesome.com/f17f03aa4c.js"></script>
+        <script src="js/moment.min.js"></script>
+        <script src="js/jquery.dataTables.min.js"></script>
+        <script src="js/dataTables.bootstrap.js"></script>
+        <script src="js/jquery.dataTables.sorting.js"></script>
+        <script src="js/jquery.address.js"></script>
+        <script src="js/mustache.js"></script>
+        <script src="js/spin.min.js"></script>
+        <script src="js/jquery.spin.js"></script>
+        <script src="js/jquery.scrollto.js"></script>
+        <script src="https://use.fontawesome.com/f17f03aa4c.js"></script>
 
-          <script src="js/progressbar.js"></script>
-        
+        <script src="js/jquery.csv-0.71.min.js"></script>
+        <script src="lib/projectteam.js"></script>
+
       </div>
     </div> <!-- /container -->
   </body>

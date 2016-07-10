@@ -4,7 +4,7 @@
     <title>Project Tracker</title>
     <meta charset='utf-8' />
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta content='{{ site.name }}' name='author' />
+    <meta content='Task List' name='author' />
 
     <meta name="application-name" content="Task List"/>
     <meta name="msapplication-TileColor" content="#FFFFFF" />
@@ -52,19 +52,26 @@
 
     <div class="container">
       <div id='primary-content' class='col-sm-10 col-sm-offset-1'>
-        <div class='row'>
-          <div class='col-sm-12'>
-            <h1 id='about'>
-              About
-            </h1>
-            <hr />
-            <p>Accountable Executive: Molly Moon</p>
-            <p>Project Aims: Create an ice cream flavor in honor of rose blooming season</p>
-            <p>Success Criteria: Eating an ice cream that evokes the delight of walking in a rose garden on a sunny day.</p>
-          </div>
-        </div>
 
+        <h1>
+          <i class="fa fa-check-square-o" aria-hidden="true"></i>
+          <small id="event-count"></small> Task List
+        </h1>
+        <hr>
+        <p>The list of project tasks, used to track work completed and work in progress. <br /></p>
 
+        <table id='tasklist' class='table table-striped dataTable no-footer' role="grid">
+          <thead>
+            <tr>
+              <th>Due Date</th>
+              <th>Task</th>
+              <th>Status</th>
+              <th>Lead(s)</th>
+            </tr>
+          </thead>
+        </table>
+
+        
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
@@ -80,7 +87,35 @@
         <script src="js/spin.min.js"></script>
         <script src="js/jquery.spin.js"></script>
         <script src="js/jquery.scrollto.js"></script>
-        
+        <script src="https://use.fontawesome.com/f17f03aa4c.js"></script>
+
+        <script type="text/javascript">
+          $( document ).ready(function() {
+              $('#tasklist').dataTable({
+                  "ajax": "data/tasks.json",
+                  "paging": false,
+                  "info": false,
+                  "columns": [
+                      {"data": "date"},
+                      {"data": "description"},
+                      {"data": "status"},
+                      {"data": "lead"}
+                  ]
+              });   
+          });
+        </script>
+
+        <script type="text/javascript">
+          $( document ).ready(function() {
+            $.getJSON("data/tasks.json", function( result ) {
+              var count = result.data.length;
+              document.getElementById("event-count").innerHTML = count
+            })
+          })
+        </script>
+
+        <script src="js/progressbar.js"></script>
+
       </div>
     </div> <!-- /container -->
   </body>

@@ -6,6 +6,7 @@ body {
 
 .navbar { min-height: 90px; }
 
+.navbar-brand { text-transform: uppercase; font-weight: bold;}
 .navbar-brand img { height: 40px; }
 
 .navbar-nav > li > a { padding-bottom: 10px; padding-top: 10px; }

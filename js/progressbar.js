@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-	$.getJSON("./data.json", function( result ) {
+	$.getJSON("./data/tasks.json", function( result ) {
 	  var total_count = result.data.length;
 	  var completed_count = 0;
 	  for (i = 0; i < total_count; i++) {
