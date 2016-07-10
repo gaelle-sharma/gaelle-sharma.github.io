@@ -4,14 +4,13 @@
     <title>Project Tracker</title>
     <meta charset='utf-8' />
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta content='Task List' name='author' />
+    <meta content='Project Tracker' name='author' />
 
     <meta name="application-name" content="Task List"/>
     <meta name="msapplication-TileColor" content="#FFFFFF" />
     
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.flatly.min.css" rel="stylesheet">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.css">
 
@@ -55,20 +54,22 @@
 
         <h1>
           <i class="fa fa-check-square-o" aria-hidden="true"></i>
-          <small id="event-count"></small> Task List
+          <small id="task-count"></small> Task List
         </h1>
         <hr>
         <p>The list of project tasks, used to track work completed and work in progress. <br /></p>
 
-        <table id='tasklist' class='table table-striped dataTable no-footer' role="grid">
+        <table id='tasklist-table' class='table table-striped'>
           <thead>
             <tr>
-              <th>Due Date</th>
-              <th>Task</th>
+              <th class='name'>Date</th>
+              <th>Description</th>
               <th>Status</th>
               <th>Lead(s)</th>
             </tr>
           </thead>
+          <tbody>
+          </tbody>
         </table>
 
         
@@ -89,32 +90,8 @@
         <script src="js/jquery.scrollto.js"></script>
         <script src="https://use.fontawesome.com/f17f03aa4c.js"></script>
 
-        <script type="text/javascript">
-          $( document ).ready(function() {
-              $('#tasklist').dataTable({
-                  "ajax": "data/tasks.json",
-                  "paging": false,
-                  "info": false,
-                  "columns": [
-                      {"data": "date"},
-                      {"data": "description"},
-                      {"data": "status"},
-                      {"data": "lead"}
-                  ]
-              });   
-          });
-        </script>
-
-        <script type="text/javascript">
-          $( document ).ready(function() {
-            $.getJSON("data/tasks.json", function( result ) {
-              var count = result.data.length;
-              document.getElementById("event-count").innerHTML = count
-            })
-          })
-        </script>
-
-        <script src="js/progressbar.js"></script>
+        <script src="js/jquery.csv-0.71.min.js"></script>
+        <script src="lib/tasklist.js"></script>
 
       </div>
     </div> <!-- /container -->
