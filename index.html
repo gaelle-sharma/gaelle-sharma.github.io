@@ -4,7 +4,7 @@
     <title>Task List</title>
     <meta charset='utf-8' />
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta content='Task List' name='author' />
+    <meta content='{{ site.name }}' name='author' />
 
     <meta name="application-name" content="Task List"/>
     <meta name="msapplication-TileColor" content="#FFFFFF" />
@@ -81,21 +81,21 @@
         </table>
 
         <!-- load jquery -->
-        <script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+        <script type="text/javascript" src="/path/to/jquery-1.10.2.js"></script>
         <!-- load datatables js library -->
-        <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="/path/to/jquery.dataTables.js"></script>
 
         <script type="text/javascript">
           $( document ).ready(function() {
               $('#tasklist').dataTable({
-                  "ajax": "data.json",
+                  "ajax": "data/data.json",
                   "paging": false,
                   "info": false,
                   "columns": [
-                      {"tasks": "id"},
-                      {"tasks": "date"},
-                      {"tasks": "description"},
-                      {"tasks": "lead"}
+                      {"data": "id"},
+                      {"data": "date"},
+                      {"data": "description"},
+                      {"data": "lead"}
                   ]
               });   
           });
